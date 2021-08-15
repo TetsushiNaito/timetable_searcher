@@ -113,7 +113,9 @@ function findDeptPolls( $handle, $startpolls, $destpolls ) {
     $busstoppoleorder = 'odpt:busstopPoleOrder';
     $busstoppoletimetable = 'odpt:busstopPoleTimetable';
     $same_as = 'owl:sameAs';
-
+    $busstoppole = 'odpt:busstopPole';
+    $dctitle = 'dc:title';
+    
     //目的地バス停名を取り出しておく
     $destpoll_names = [];
     //$hoge = count( $destpolls );
@@ -158,8 +160,6 @@ function findDeptPolls( $handle, $startpolls, $destpolls ) {
                 //print_r( $result );
                 // 路線のバス停名を配列にしておく
                 $route_poll_names = [];
-                $busstoppole = 'odpt:busstopPole';
-                $dctitle = 'dc:title';
                 for ( $i = 0; $i < count( $result->$busstoppoleorder); $i++ ) {
                     $route_poll_names[$i] = $result->$busstoppoleorder[$i]->$busstoppole;
                 };
