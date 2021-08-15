@@ -221,6 +221,7 @@ function makeTable( $handle, $route_names_table, $timetables ) {
     $odpt_dept = 'odpt:departureTime';
     $odpt_pattern = 'odpt:busroutePattern';
     $odpt_note = 'odpt:note';
+    $dc_title = 'dc:title';
     $route_pattern = array_keys( $route_names_table );
     $times = [];
 
@@ -230,13 +231,17 @@ function makeTable( $handle, $route_names_table, $timetables ) {
         $url = BASEURL.'odpt:BusstopPoleTimetable?acl:consumerKey='. ACCESSTOKEN . "&owl:sameAs=$timetable";
         //print "$url\n";
         curl_setopt( $handle, CURLOPT_URL, $url );
-        $contents = ( json_decode( curl_exec( $handle ), FALSE ))[0]->$odpt_object;
+        $contents_all = ( json_decode( curl_exec( $handle ), FALSE ));
+        // 路線の行き先を取っておく
+        $route_title = explode(':', $contents_all[0]->$dc_title)[0];
+        $contents = $contents_all[0]->$odpt_object;
         // 使える路線の時刻を路線名と共に保存する
         for ( $i = 0; $i < count( $contents ); $i++ ) {
             //print_r( $contents[$i] );
             if ( in_array( $contents[$i]->$odpt_pattern, $route_pattern ) ) {
                 $time = new Time;
                 $time->dept_time = $contents[$i]->$odpt_dept;
+                $time->route_dest_name = $route_title;
                 $time->route_name = $route_names_table[ $contents[$i]->$odpt_pattern ];
                 if ( property_exists( $contents[$i], $odpt_note ) ) {
                     $time->note = $contents[$i]->$odpt_note; 

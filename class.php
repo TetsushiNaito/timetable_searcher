@@ -9,6 +9,7 @@ note: 備考
 class Time {
 	public string $dept_time;
 	public string $route_name;
+	public string $route_dept_name;
 	public string $note;
 }
 
