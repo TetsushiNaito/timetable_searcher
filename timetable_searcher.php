@@ -82,19 +82,23 @@ curl_close( $ch );
 //    //print_r( $result );
 //}
 
+function getDataFromAPI( $handle, $url ) : array {
+    curl_setopt( $handle, CURLOPT_URL, $url );
+    curl_setopt( $handle, CURLOPT_RETURNTRANSFER, true );
+    return json_decode( curl_exec( $handle ), FALSE );
+}
+
 function retrieveDeptPoles( $handle, $deptpoll_name ) {
     $deptpoll_name = urlencode( $deptpoll_name );
     $url = BASEURL.'odpt:BusstopPole?acl:consumerKey='. ACCESSTOKEN . "&dc:title={$deptpoll_name}";
-    curl_setopt( $handle, CURLOPT_URL, $url );
-    return json_decode( curl_exec( $handle ), FALSE );
+    return getDataFromAPI( $handle, $url);
 }
 
 //バス停名からバス停の情報を得る
 function getPoll( $handle, $name ) {
     $name = urlencode( $name );
     $url = BASEURL.'odpt:BusstopPole?acl:consumerKey='. ACCESSTOKEN . "&dc:title={$name}";
-    curl_setopt( $handle, CURLOPT_URL, $url );
-    $results = json_decode( curl_exec( $handle ), FALSE );
+    $results = getDataFromAPI( $handle, $url );
     $polls_array = [];
 
     //バス停番号がないデータは省く
@@ -150,9 +154,7 @@ function findDeptPolls( $handle, $startpolls, $destpolls ) {
             //バス停の路線を検索して、目的地バス停があればそのバス停を乗車可能候補とする
             $url = BASEURL.'odpt:BusroutePattern?acl:consumerKey='. ACCESSTOKEN . "&owl:sameAs={$route_names[1]}";
             //print "$url\n";
-            curl_setopt( $handle, CURLOPT_URL, $url );
-            curl_setopt( $handle, CURLOPT_RETURNTRANSFER, TRUE);
-            $results = json_decode( curl_exec( $handle ), FALSE );              
+            $results = getDataFromAPI( $handle, $url );              
 
             //検索した路線ごとにチェックする
             foreach ( $results as $result ) {
@@ -222,6 +224,7 @@ function makeTable( $handle, $route_names_table, $timetables ) {
     $odpt_pattern = 'odpt:busroutePattern';
     $odpt_note = 'odpt:note';
     $dc_title = 'dc:title';
+    $odpt_destsign = 'odpt:destinationSign';
     $route_pattern = array_keys( $route_names_table );
     $times = [];
 
@@ -230,8 +233,7 @@ function makeTable( $handle, $route_names_table, $timetables ) {
         // 時刻表の中身を得る
         $url = BASEURL.'odpt:BusstopPoleTimetable?acl:consumerKey='. ACCESSTOKEN . "&owl:sameAs=$timetable";
         //print "$url\n";
-        curl_setopt( $handle, CURLOPT_URL, $url );
-        $contents_all = ( json_decode( curl_exec( $handle ), FALSE ));
+        $contents_all = getDataFromAPI( $handle, $url );
         // 路線の行き先を取っておく
         $route_title = explode(':', $contents_all[0]->$dc_title)[0];
         $contents = $contents_all[0]->$odpt_object;
@@ -245,6 +247,9 @@ function makeTable( $handle, $route_names_table, $timetables ) {
                 $time->route_name = $route_names_table[ $contents[$i]->$odpt_pattern ];
                 if ( property_exists( $contents[$i], $odpt_note ) ) {
                     $time->note = $contents[$i]->$odpt_note; 
+                }
+                if ( property_exists( $contents[$i], $odpt_destsign ) ) {
+                    $time->destsign = $contents[$i]->$odpt_destsign;
                 }
                 $times[] = $time;
             }
