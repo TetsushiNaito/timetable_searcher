@@ -8,7 +8,7 @@ const BASEURL = 'https://api-tokyochallenge.odpt.org/api/v4/';
 // アクセストークン
 const ACCESSTOKEN = 'e5f8c0903e7db287cbe3491292f9d6f42d3e204ea8970378cd7f4f48bc335b1e';
 
-// 今日は平日土曜休日のいずれか
+// 今日は平日土曜休日のいずれなのかを調べる
 $day = dayCheck();
 
 //日吉駅の緯度経度
@@ -52,11 +52,6 @@ $destpolls = getPoll( $ch, $destpoll_name );
 
 //出発地バス停から、目的地に行く路線の時刻表を特定する
 [ $route_names_table, $table_candidate ] = findDeptPolls( $ch, $startpolls, $destpolls );
-
-//print "hogehogehoge\n";
-//print_r( $route_names_table );
-//print "hogehogehoge\n";
-//print_r( $table_candidate );
 
 // 調べるべき時刻表を特定する
 $tables = retrieveTimeTable( $table_candidate );
@@ -114,10 +109,10 @@ function getPoll( $handle, $name ) {
     return $polls_array;
 }
 
+// どの路線なら目的地に着けるかを検索する
 function findDeptPolls( $handle, $startpolls, $destpolls ) {
     $timetable_candidate = [];
     $busroutepattern = 'odpt:busroutePattern';
-    $busstoppollnumber = 'odpt:busstopPoleNumber';
     $busstoppoleorder = 'odpt:busstopPoleOrder';
     $busstoppoletimetable = 'odpt:busstopPoleTimetable';
     $same_as = 'owl:sameAs';
@@ -126,8 +121,6 @@ function findDeptPolls( $handle, $startpolls, $destpolls ) {
     
     //目的地バス停名を取り出しておく
     $destpoll_names = [];
-    //$hoge = count( $destpolls );
-    //print "hoge $hoge\n";
     
     // 目的地バス停の配列を整理する
     $destpolls_copy = $destpolls;
@@ -146,10 +139,6 @@ function findDeptPolls( $handle, $startpolls, $destpolls ) {
     //各バス停から乗れる路線を取り出す
     //各バス停ごとにループを回す
     foreach ( $startpolls as $startpoll ) {
-
-        //busstopPollNumberが無いものは処理しない
-        //if ( $startpoll->$busstoppollnumber == '' ) { continue; } 
-
         //各バス停を通る路線ごとにチェックを行なう
         //print_r( $startpoll->$busroutepattern );
         foreach ( $startpoll->$busroutepattern as $routes ) {
@@ -162,38 +151,25 @@ function findDeptPolls( $handle, $startpolls, $destpolls ) {
 
             //検索した路線ごとにチェックする
             foreach ( $results as $result ) {
-                //print "result\n";
-                //print_r( $result );
                 // 路線のバス停名を配列にしておく
                 $route_poll_names = [];
                 for ( $i = 0; $i < count( $result->$busstoppoleorder); $i++ ) {
                     $route_poll_names[$i] = $result->$busstoppoleorder[$i]->$busstoppole;
                 };
-                //print_r( $route_poll_names );
-                // print_r( array_filter( $route_poll_names, function($v) { return preg_match( '/Miyamaenishimachi/', $v ); }));
-                //print "startpoll " . $startpoll->$same_as . "\n";
                 $dept_num = array_search( $startpoll->$same_as, $route_poll_names );
                 foreach ( $destpoll_names as $destpoll_name ) {
                     //print "$destpoll_name\n";
                     $dest_num = array_search( $destpoll_name, $route_poll_names );
                     if ( $dept_num !== false && $dest_num !== false ) {
                         //目的地バス停が出発地バス停の後に来たら、そのバス停を出発地候補にする 
-                        //print "$destpoll_name\n";
-                        //print_r($route_poll_names);                        ;
                         if ( $dept_num < $dest_num ) {
-                            //print "dept $dept_num dest $dest_num\n";
-                            //print "resultsameas " . $result->$same_as . "\n";
                             if ( ! in_array($result->$same_as, $route_nums ) ) {
-                                //print "route_nums "; print_r( $route_nums );
-                                //print "same_as "; print_r($result->$same_as);
                                 $route_nums[] = $result->$same_as;
                                 $route_names_table[ $result->$same_as ] = $result->$dctitle;
                             } else {
                                 break 2;
                             }
                             if ( ! in_array( $startpoll->$busstoppoletimetable, $timetable_candidate ) ) {
-                                //print "fuga "; print_r($timetable_candidate);
-                                //print "hoge "; print_r($startpoll->$busstoppoletimetable );
                                 $timetable_candidate[] = $startpoll->$busstoppoletimetable;
                             }
                             break 2;        
