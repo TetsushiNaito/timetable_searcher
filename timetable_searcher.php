@@ -262,7 +262,23 @@ function makeTable( $handle, $route_names_table, $timetables ) {
     } );
     return $times;
 }
+
+//今日は平日か土曜日か休日か   
 function dayCheck() {
-    //今日は平日か土曜日か祝日か
-    return 'Weekday';
+    // 祝日チェック
+    if ( isHoliday( strtotime( 'Y-m-d' ) ) ) {
+        return 'Sunday';
+    }
+    switch ( strtotime( 'l' ) ) {
+        case 'Saturday' :
+            $today = 'Saturday';
+            break;
+        case 'Sunday' :
+            $today = 'Sunday';
+            break;
+        default :
+            $today = 'Weekday';
+            break;
+    }
+    return $today;
 }
