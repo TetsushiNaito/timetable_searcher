@@ -126,4 +126,3 @@ function retrieveTimeTable( $timetables ) {
     }
     return $results;
 }
-
