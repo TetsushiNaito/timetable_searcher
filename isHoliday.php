@@ -1,5 +1,4 @@
 <?php
-
 function isHoliday( $target_day ) {
     $calendarID = 'ja.japanese#holiday@group.v.calendar.google.com';
     $api_key = 'AIzaSyCymDtM7LChdd4-EPimWjdzh3BIZ5a5wnk';
@@ -7,11 +6,7 @@ function isHoliday( $target_day ) {
     $calendarID = urlencode( $calendarID );
     $url = 'https://www.googleapis.com/calendar/v3/calendars/'.$calendarID.'/events?';
 
-    //今日の日付を取得
-    if (date_default_timezone_get() == 'Asia/Tokyo'){
-        $today = date("Y-m-d");
-    }
-    $start = date('c', strtotime($today));
+    $start = date('c', strtotime( $target_day ) );
     // 3ヶ月先まで調べる
     $end = date('c', time() + 60*60*24*31*3 );
     //print "$end\n";

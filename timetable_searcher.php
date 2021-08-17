@@ -1,11 +1,15 @@
 <?php
 
 require_once 'class.php';
+require_once 'isHoliday.php';
 
 // base url
 const BASEURL = 'https://api-tokyochallenge.odpt.org/api/v4/';
 // アクセストークン
 const ACCESSTOKEN = 'e5f8c0903e7db287cbe3491292f9d6f42d3e204ea8970378cd7f4f48bc335b1e';
+
+// 今日は平日土曜休日のいずれか
+$day = dayCheck();
 
 //日吉駅の緯度経度
 $lat = 35.5539161;
@@ -200,14 +204,35 @@ function findDeptPolls( $handle, $startpolls, $destpolls ) {
         }
     }
     return [ $route_names_table, $timetable_candidate ];
+}d
+
+//今日は平日か土曜日か休日か   
+function dayCheck() {
+    // 祝日チェック
+    if ( isHoliday( date( 'Y-m-d' ) ) ) {
+        return 'Sunday';
+    }
+    switch ( date( 'l' ) ) {
+        case 'Saturday' :
+            $today = 'Saturday';
+            break;
+        case 'Sunday' :
+            $today = 'Sunday';
+            break;
+        default :
+            $today = 'Weekday';
+            break;
+    }
+    print "$today\n";
+    return $today;
 }
 
 // 調べるべき時刻表のリストを得る
 function retrieveTimeTable( $timetables ) {
-    // 平日/土曜/休日の時刻表のどれを参照すべきか選択する
+    // 平日/土曜/休日の時刻表のどれを参照すべきか選択する  
     foreach ( $timetables as $timetable ) {
         $filtereds = array_filter( $timetable, function($value) {
-            $day = dayCheck();
+            global $day;
             return preg_match( '/'.$day.'/', $value, $array );
         });
         foreach( $filtereds as $filtered ) {
@@ -261,24 +286,4 @@ function makeTable( $handle, $route_names_table, $timetables ) {
         return strtotime( $a->dept_time ) <=> strtotime( $b->dept_time );
     } );
     return $times;
-}
-
-//今日は平日か土曜日か休日か   
-function dayCheck() {
-    // 祝日チェック
-    if ( isHoliday( strtotime( 'Y-m-d' ) ) ) {
-        return 'Sunday';
-    }
-    switch ( strtotime( 'l' ) ) {
-        case 'Saturday' :
-            $today = 'Saturday';
-            break;
-        case 'Sunday' :
-            $today = 'Sunday';
-            break;
-        default :
-            $today = 'Weekday';
-            break;
-    }
-    return $today;
 }
