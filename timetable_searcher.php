@@ -2,6 +2,7 @@
 
 require_once 'class.php';
 require_once 'isHoliday.php';
+require_once 'findDeptPolls.php';
 
 // base url
 const BASEURL = 'https://api-tokyochallenge.odpt.org/api/v4/';
@@ -10,17 +11,6 @@ const ACCESSTOKEN = 'e5f8c0903e7db287cbe3491292f9d6f42d3e204ea8970378cd7f4f48bc3
 
 // 今日は平日土曜休日のいずれなのかを調べる
 $day = dayCheck();
-
-//日吉駅の緯度経度
-$lat = 35.5539161;
-$lon = 139.6470643;
-
-//プラウドシティ日吉の緯度経度
-//$lat = 35.54565951812466;
-//$lon = 139.64529179932634;
-
-// 検索半径
-// $radius = 150;
 
 //出発地のバス停
 $deptpoll_name = '日吉駅東口';
@@ -72,15 +62,6 @@ for ( $k = 0; $k < count($nowtime); $k++ ) {
 
 curl_close( $ch );
 
-
-//緯度経度から近くのバス停を得る
-//function retrieveDeptPoles( $handle, $lon, $lat, $radius ) {
-//    $url = BASEURL."places/odpt:BusstopPole?lon={$lon}&lat={$lat}&radius={$radius}&acl:consumerKey=".ACCESSTOKEN;
-//    curl_setopt( $handle, CURLOPT_URL, $url );
-//    return json_decode( curl_exec( $handle ), FALSE );
-//    //print_r( $result );
-//}
-
 function getDataFromAPI( $handle, $url ) : array {
     curl_setopt( $handle, CURLOPT_URL, $url );
     curl_setopt( $handle, CURLOPT_RETURNTRANSFER, true );
@@ -109,78 +90,6 @@ function getPoll( $handle, $name ) {
     return $polls_array;
 }
 
-// どの路線なら目的地に着けるかを検索する
-function findDeptPolls( $handle, $startpolls, $destpolls ) {
-    $timetable_candidate = [];
-    $busroutepattern = 'odpt:busroutePattern';
-    $busstoppoleorder = 'odpt:busstopPoleOrder';
-    $busstoppoletimetable = 'odpt:busstopPoleTimetable';
-    $same_as = 'owl:sameAs';
-    $busstoppole = 'odpt:busstopPole';
-    $dctitle = 'dc:title';
-    
-    //目的地バス停名を取り出しておく
-    $destpoll_names = [];
-    
-    // 目的地バス停の配列を整理する
-    $destpolls_copy = $destpolls;
-    $destpolls = [];
-    foreach ( $destpolls_copy as $destpoll ) {
-        $destpolls[] = $destpoll;
-    }
-    //print_r( $destpolls );
-    for ( $i = 0; $i < count( $destpolls ); $i++ ) {
-        $destpoll_names[$i] = $destpolls[$i]->$same_as;
-    }
-
-    $route_nums = [];
-    $route_names_table = [];
-
-    //各バス停から乗れる路線を取り出す
-    //各バス停ごとにループを回す
-    foreach ( $startpolls as $startpoll ) {
-        //各バス停を通る路線ごとにチェックを行なう
-        //print_r( $startpoll->$busroutepattern );
-        foreach ( $startpoll->$busroutepattern as $routes ) {
-            preg_match( '/(odpt.BusroutePattern:.*)$/', $routes, $route_names );
-            
-            //バス停の路線を検索して、目的地バス停があればそのバス停を乗車可能候補とする
-            $url = BASEURL.'odpt:BusroutePattern?acl:consumerKey='. ACCESSTOKEN . "&owl:sameAs={$route_names[1]}";
-            //print "$url\n";
-            $results = getDataFromAPI( $handle, $url );              
-
-            //検索した路線ごとにチェックする
-            foreach ( $results as $result ) {
-                // 路線のバス停名を配列にしておく
-                $route_poll_names = [];
-                for ( $i = 0; $i < count( $result->$busstoppoleorder); $i++ ) {
-                    $route_poll_names[$i] = $result->$busstoppoleorder[$i]->$busstoppole;
-                };
-                $dept_num = array_search( $startpoll->$same_as, $route_poll_names );
-                foreach ( $destpoll_names as $destpoll_name ) {
-                    //print "$destpoll_name\n";
-                    $dest_num = array_search( $destpoll_name, $route_poll_names );
-                    if ( $dept_num !== false && $dest_num !== false ) {
-                        //目的地バス停が出発地バス停の後に来たら、そのバス停を出発地候補にする 
-                        if ( $dept_num < $dest_num ) {
-                            if ( ! in_array($result->$same_as, $route_nums ) ) {
-                                $route_nums[] = $result->$same_as;
-                                $route_names_table[ $result->$same_as ] = $result->$dctitle;
-                            } else {
-                                break 2;
-                            }
-                            if ( ! in_array( $startpoll->$busstoppoletimetable, $timetable_candidate ) ) {
-                                $timetable_candidate[] = $startpoll->$busstoppoletimetable;
-                            }
-                            break 2;        
-                        }
-                    }
-                }                  
-            }
-        }
-    }
-    return [ $route_names_table, $timetable_candidate ];
-}
 
 //今日は平日か土曜日か休日か   
 function dayCheck() {
