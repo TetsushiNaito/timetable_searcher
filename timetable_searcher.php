@@ -204,7 +204,7 @@ function findDeptPolls( $handle, $startpolls, $destpolls ) {
         }
     }
     return [ $route_names_table, $timetable_candidate ];
-}d
+}
 
 //今日は平日か土曜日か休日か   
 function dayCheck() {
@@ -223,7 +223,6 @@ function dayCheck() {
             $today = 'Weekday';
             break;
     }
-    print "$today\n";
     return $today;
 }
 
