@@ -9,25 +9,25 @@
 <body>
 <div id="base">
     <div id="header">
-        <!-- タイトルバナー -->
+    <!-- タイトルバナー -->
     </div>
     <div id="submit">
         <div id="submit_title">
-            <!-- 新規登録画面タイトル -->
+        <!-- 新規登録画面タイトル -->
         </div>
         <div id="input_area">
             <div class="input_form">
-                <!-- 出発地バス停名の入力 -->
+            <!-- 出発地バス停名の入力 -->
             </div> 
             <div class="input_form">
-                <!-- 目的地バス停名の入力 -->
+            <!-- 目的地バス停名の入力 -->
             </div>
             <div id="list_num">
-                <!-- 時刻の表示数の選択 --->
+            <!-- 時刻の表示数の選択 --->
             </div>
         </div>
         <div id="submit_button">
-            <!-- submit ボタン --->
+        <!-- submit ボタン --->
         </div>
     </div>
     <div id="footer">
