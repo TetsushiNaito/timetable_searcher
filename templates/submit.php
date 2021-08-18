@@ -19,13 +19,13 @@
             <form action="submit_route.php" method="POST">
                 <div class="input_form">
                     <!-- 出発地バス停名の入力 -->
-                    出発地バス停：
-                    <input type="text" name="dept_poll">
+                    <label for="dept_poll">出発地バス停：</label>
+                    <input id="dept_poll" type="text" name="dept_poll">
                 </div> 
                 <div class="input_form">
                     <!-- 目的地バス停名の入力 -->
-                    目的地バス停：
-                    <input type="text" name="dest_poll">
+                    <label for="dest_poll">目的地バス停：</label>
+                    <input id="dest_poll" type="text" name="dest_poll">
                 </div>
                 <div id="list_num">
                     時刻の表示数：
