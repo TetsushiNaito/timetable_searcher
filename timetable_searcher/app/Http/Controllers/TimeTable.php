@@ -1,4 +1,6 @@
 <?php
+
+namespace App\Http\Controllers;
 /*
 Time: 時刻1つごとのオブジェクト
 プロパティ：
@@ -33,8 +35,7 @@ class TimeTable {
 
 	public function getDeptTimeNow( $num ) : array {
 		$result = [];
-		$now = new DateTime;
-		$now_time = $now->format('H:i');
+		$now_time = date('H:i');
         // print "$now_time\n";
 		for ( $i = 0; $i < count( $this->times ); $i++ ) {
 			if ( strtotime( $this->times[$i]->dept_time ) > strtotime( $now_time ) ) { break; }

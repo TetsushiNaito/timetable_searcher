@@ -10,11 +10,15 @@ function makeTable( $handle, $route_names_table, $timetables ) {
     $odpt_destsign = 'odpt:destinationSign';
     $route_pattern = array_keys( $route_names_table );
     $times = [];
+    global $baseurl;
+    global $access_token;
 
     // 各時刻表ごとにループを回す
     foreach( $timetables as $timetable ) {
         // 時刻表の中身を得る
-        $url = BASEURL.'odpt:BusstopPoleTimetable?acl:consumerKey='. ACCESSTOKEN . "&owl:sameAs=$timetable";
+        $baseurl = Config::get('base.url');
+        $access_token = Config::get('access.token');        
+        $url = $baseurl.'odpt:BusstopPoleTimetable?acl:consumerKey='. $access_token . "&owl:sameAs=$timetable";
         //print "$url\n";
         $contents_all = getDataFromAPI( $handle, $url );
         // 路線の行き先を取っておく

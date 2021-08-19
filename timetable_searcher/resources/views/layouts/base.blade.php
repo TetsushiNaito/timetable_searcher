@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,13 +8,13 @@
 </head>
 <body>
     <div id='header'>
-        @section( 'header' )
+        @yield('header')
     </div>
     <div id='content'>
-        @yield( 'content' )
+        @yield('content')
     </div>
     <div id='footer'>
-        @yield( 'footer' )
+        @yield('footer')
     </div>
 </body>
 </html>

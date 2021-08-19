@@ -17,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 //    return view('welcome');
 //});
 
-Route::get( '/', 'SearchController@index' );
+Route::post( 'confirm', 'App\Http\Controllers\SearchController@post' );
 
-Route::get( 'submit', 'SearchController@submit' );
+Route::get( 'submit', function() {
+    return view( 'submit' );
+});
+
+Route::get( '/', 'App\Http\Controllers\SearchController@index' );

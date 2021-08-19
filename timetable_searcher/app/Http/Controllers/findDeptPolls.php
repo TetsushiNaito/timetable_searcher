@@ -36,7 +36,9 @@ function findDeptPolls( $handle, $startpolls, $destpolls ) {
             preg_match( '/(odpt.BusroutePattern:.*)$/', $routes, $route_names );
             
             //バス停の路線を検索して、目的地バス停があればそのバス停を乗車可能候補とする
-            $url = BASEURL.'odpt:BusroutePattern?acl:consumerKey='. ACCESSTOKEN . "&owl:sameAs={$route_names[1]}";
+            $baseurl = Config::get('base.url');
+            $access_token = Config::get('access.token');  
+            $url = $baseurl.'odpt:BusroutePattern?acl:consumerKey='. $access_token . "&owl:sameAs={$route_names[1]}";
             //print "$url\n";
             $results = getDataFromAPI( $handle, $url );              
 
