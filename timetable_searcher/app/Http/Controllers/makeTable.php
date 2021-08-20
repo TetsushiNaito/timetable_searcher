@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use Illuminate\Support\Facades\Config;
+
 // 乗車可能なバスの時刻表を作成する
 function makeTable( $handle, $route_names_table, $timetables ) {
     $odpt_object = 'odpt:busstopPoleTimetableObject';
@@ -10,8 +14,6 @@ function makeTable( $handle, $route_names_table, $timetables ) {
     $odpt_destsign = 'odpt:destinationSign';
     $route_pattern = array_keys( $route_names_table );
     $times = [];
-    global $baseurl;
-    global $access_token;
 
     // 各時刻表ごとにループを回す
     foreach( $timetables as $timetable ) {

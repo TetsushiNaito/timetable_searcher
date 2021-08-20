@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 /*
 Time: 時刻1つごとのオブジェクト
 プロパティ：
@@ -8,6 +9,7 @@ dept_time: 出発時刻
 route_name: 路線名
 note: 備考
 */
+
 class Time {
 	public string $dept_time;
 	public string $route_name;
