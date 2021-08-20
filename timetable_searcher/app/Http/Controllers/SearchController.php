@@ -76,23 +76,25 @@ class SearchController extends Controller
             $cookie = $request->cookie('depr_polls');
             // 登録されていないバス停名のみ追加する
             $array = explode( ':', $cookie );
-            if ( ! array_search( $depr_poll, $array ) ) {
+            if ( array_search( $depr_poll, $array ) === false ) {
                 $response->cookie( 'depr_polls', $depr_poll . ':' . $cookie );
             }
         }
         else {
-            $response->cookie( 'depr_polls', $depr_poll . ':' );
+ //           $response->cookie( 'depr_polls', $depr_poll . ':' );
+            $response->cookie( 'depr_polls', $depr_poll );
         }
         if ( isset( $_COOKIE['dest_polls'] ) ) {
             $cookie = $request->cookie( 'dest_polls');
             // 登録されていないバス停名のみ追加する
             $array = explode( ':', $cookie );
-            if ( ! array_search( $dest_poll, $array ) ) {
+            if ( array_search( $dest_poll, $array ) === false ) {
                 $response->cookie( 'dest_polls', $dest_poll . ':' . $cookie );
             }
         }
         else {
-            $response->cookie( 'dest_polls', $dest_poll . ':' );
+//            $response->cookie( 'dest_polls', $dest_poll . ':' );
+            $response->cookie( 'dest_polls', $dest_poll );
         }
         $response->cookie( 'line_num', $request->line_num );
         return $response;
