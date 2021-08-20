@@ -13,21 +13,21 @@
         <!-- 出発地バス停名のプルダウン、要素はCookieから取り出す -->
         <select name="depr_poll">
             <option value="{{$depr_poll}}">{{$depr_poll}}</option>  
-        </select>
-        @if ( $deprs !== null )
-            @for ( $i = 0; $i < count( $deprs ); $i++ )
+            @if ( $deprs !== null )
+                @for ( $i = 0; $i < count( $deprs ); $i++ )
                 <option value="{{$deprs[$i]}}">{{$deprs[$i]}}</option>
-            @endfor
-        @endif
+                @endfor
+            @endif
+        </select>
         <!-- 目的地バス停名のプルダウン、要素はCookieから取り出す -->
         <select name="dest_poll">
             <option value="{{$dest_poll}}">{{$dest_poll}}</option>
-        </select>
-        @if ( $dests !== null )
-            @for ( $i = 0; $i < count( $dests ); $i++ )
+            @if ( $dests !== null )
+                @for ( $i = 0; $i < count( $dests ); $i++ )
                 <option value="{{$dests[$i]}}">{{$dests[$i]}}</option>
-            @endfor
-        @endif
+                @endfor
+            @endif
+        </select>
         <!-- 最後に選んだルートの結果を表示するようにする(cookie使うか) -->
     </div>
     <div id="timetable">
