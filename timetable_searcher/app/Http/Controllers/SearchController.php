@@ -31,21 +31,36 @@ Config::set('access.token', 'e5f8c0903e7db287cbe3491292f9d6f42d3e204ea8970378cd7
 
 class SearchController extends Controller
 {
-    public function index( Request $request ) {
+    public function index( Request $request, $depr_poll, $dest_poll, $line_num, $holiday=0 ) {
         //初回はCookieが空なので必ず登録画面に飛ばす
         if ( ! isset( $_COOKIE['depr_polls'] ) || ! isset( $_COOKIE['dest_polls'] ) ) {
          //   header( 'Location: ' . SUBMITPAGE );
-            return redirect( '/submit' );
+            return redirect( '/foo/bar/0' );
         }        
-        $depr_polls_cookie = $request->cookie( 'depr_polls' );
-        $dest_polls_cookie = $request->cookie( 'dest_polls' );
-        $deprs = explode( ':', $depr_polls_cookie );
-        $dests = explode( ':', $dest_polls_cookie );
+        $deprs = explode( ':', $request->cookie( 'depr_polls' ) );
+        $dests = explode( ':', $request->cookie( 'dest_polls' ) );
         $line_num = $request->cookie( 'line_num' );
-        $depr_poll = array_shift( $deprs );
-        $dest_poll = array_shift( $dests );
+        if ( $depr_poll == '' ) {
+            $depr_poll = array_shift( $deprs );
+        } else {
+            if ( ! $this->_check_poll( $depr_poll ) ) {
+                return view( 'invalid' );
+            }
+            array_shift( $deprs );
+        }
+        if ( $dest_poll == '' ) {
+            $dest_poll = array_shift( $dests );
+        } else {
+            if ( ! $this->_check_poll( $dest_poll ) ) {
+                return view( 'invalid' );
+            }
+            array_shift( $dests );
+        }
+        if ( $line_num > 10 ) {
+            return view( 'invalid' );
+        }
         $showTimeTable = new showTimeTable;
-        $timetable_lines = $showTimeTable->show_timetable( $depr_poll, $dest_poll, $line_num );
+        $timetable_lines = $showTimeTable->show_timetable( $depr_poll, $dest_poll, $line_num, $holiday );
         $data = [
             'deprs' => $deprs,
             'dests' => $dests,
@@ -94,5 +109,23 @@ class SearchController extends Controller
         }
         $response->cookie( 'line_num', $request->line_num );
         return $response;
+    }
+
+    function _check_poll( $poll_name ) {
+        $baseurl = Config::get('base.url');
+        $access_token = Config::get('access.token');        
+        $hoge = urlencode( $poll_name );
+        $url = $baseurl.'odpt:BusstopPole?acl:consumerKey='. $access_token . "&dc:title={$hoge}";
+        $ch = curl_init( $url );
+        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, TRUE);
+        $result = curl_exec( $ch );
+        $result = json_decode( curl_exec( $ch ), FALSE );
+        curl_close( $ch );
+        if (isset( $result[0] ) ) {
+            return true;
+        }
+        else {
+            return false; 
+        }
     }
 }
