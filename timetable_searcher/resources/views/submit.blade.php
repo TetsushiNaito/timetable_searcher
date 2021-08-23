@@ -13,12 +13,18 @@
             <div class="input_form">
                 <!-- 出発地バス停名の入力 -->
                 <label for="depr_poll">出発地バス停：</label>
-                <input type="text" name="depr_poll">
+                <input type="text" name="depr_poll" value="{{old('depr_poll')}}">
+                @if ( $errors->has('depr_poll'))
+                {{$errors->first('depr_poll')}}
+                @endif
             </div> 
             <div class="input_form">
                 <!-- 目的地バス停名の入力 -->
                 <label for="dest_poll">目的地バス停：</label>
-                <input type="text" name="dest_poll">
+                <input type="text" name="dest_poll" value="{{old('dest_poll')}}">
+                @if ( $errors->has('dest_poll'))
+                {{$errors->first('dest_poll')}}
+                @endif
             </div>
             <div id="list_num">
                 時刻の表示数：

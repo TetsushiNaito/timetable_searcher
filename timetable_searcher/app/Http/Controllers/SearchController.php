@@ -17,6 +17,7 @@ const TOPPAGE = 'http://localhost:8000/';
 // バス停の新規登録画面
 const SUBMITPAGE = 'http://localhost:8000/submit/';
 
+use App\Http\Requests\PollnameRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use PhpParser\Node\Expr\AssignOp\ShiftLeft;
@@ -56,12 +57,7 @@ class SearchController extends Controller
         return view( 'index', $data );
     }
 
-    public function post( Request $request ) {
-        $validation_rule = [
-            'depr_poll' => 'required',
-            'dest_poll' => 'required',
-        ];
-        $this->validate( $request, $validation_rule );
+    public function post( PollnameRequest $request ) {
 
         $depr_poll = $request->depr_poll;
         $dest_poll = $request->dest_poll;
