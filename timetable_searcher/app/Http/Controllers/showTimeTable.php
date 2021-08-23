@@ -52,11 +52,14 @@ class showTimeTable {
 
         $nowtime = $timetable->getDeptTimeNow( $line_num );
         //print_r( mb_convert_encoding( $nowtime, 'SJIS', 'UTF-8' ) );
+        $line = [];
         for ( $k = 0; $k < count($nowtime); $k++ ) {
             $line[$k] = $nowtime[$k]->dept_time . " " . $nowtime[$k]->route_name . " " . $nowtime[$k]->note;
         }
         curl_close( $ch );
-        
+        if ( count($line) == 0 ) {
+            $line[0] = "終了";
+        }
         return $line;
         //print_r( $table_all );
 
