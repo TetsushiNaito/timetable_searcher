@@ -5,9 +5,18 @@
 @section( 'header')
     @component( 'components.header ')
 @endsection
-
+<script>
+    function reloadTable() {
+        let isHoliday = document.reload.isholiday;
+        if ( isHoliday.checked ) {
+            location.href = location.href.replace( /\/.$/, '/1' );
+        } else {
+            location.href = location.href.replace( /\/.$/, '/0' );
+        }
+    }
+</script>
 @section( 'content' )
-    <form action="/" method='post'>
+    <form name="reload" action="/">
     @csrf
     <div id="route_name">
         <!-- 出発地バス停名のプルダウン、要素はCookieから取り出す -->
@@ -37,13 +46,14 @@
     </div>
     <div id="reload_button">
         <!-- 出発時刻の表示 -->
-        <input type="submit" value="更新">
+        <input type="button" value="更新" onclick="reloadTable()" />
     </div>
     <div id="holiday_button">
-        <!-- 祝日ダイヤ適用ボタン -->
-        <input type="submit" value="今日は祝日">
+        <!-- 祝日ダイヤ適用チェックボックス -->
+        <label><input type="checkbox" name="isholiday">今日は祝日ダイヤ</label>
     </div>
-@endsection
+    </form>
+    @endsection
 
 @section( 'footer')
     @component( 'components.footer' )

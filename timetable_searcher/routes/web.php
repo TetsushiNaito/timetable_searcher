@@ -23,4 +23,8 @@ Route::get( 'submit', function() {
     return view( 'submit' );
 });
 
-Route::get( '/', 'App\Http\Controllers\SearchController@index' );
+Route::get( '/', function() {
+    return redirect( '/submit' );
+});
+
+Route::get( '/{depr_poll}/{dest_poll}/{line_num}/{holiday?}', 'App\Http\Controllers\SearchController@index' );

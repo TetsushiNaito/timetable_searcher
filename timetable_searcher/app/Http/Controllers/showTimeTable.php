@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 class showTimeTable {
-    public function show_timetable( $deptpoll_name, $destpoll_name, $line_num ) {
+    public function show_timetable( $deptpoll_name, $destpoll_name, $line_num, $holiday ) {
         //出発地のバス停
         //$deptpoll_name = '日吉駅東口';
         //$deptpoll_name = 'プラウドシティ日吉';
@@ -22,8 +22,11 @@ class showTimeTable {
         //$line_num = 3;
 
         // 今日は平日土曜休日のいずれなのかを調べる
-        $day = dayCheck();
-
+        if ( $holiday == 1 ) { //強制休日ダイヤモード
+            $day = 'Sunday';
+        } else {
+            $day = dayCheck();
+        }
         //$url = BASEURL . "place/odpt:Station?lon={$lon}&lat={$lat}&radius={$radius}&acl:consumerKey=" . ACCESSTOKEN;
         $ch = curl_init();
         curl_setopt( $ch, CURLOPT_RETURNTRANSFER, TRUE);
@@ -47,7 +50,6 @@ class showTimeTable {
         $timetable->dest_poll = $destpoll_name;
         $timetable->times = makeTable( $ch, $route_names_table, $tables );
 
-        // 
         $nowtime = $timetable->getDeptTimeNow( $line_num );
         //print_r( mb_convert_encoding( $nowtime, 'SJIS', 'UTF-8' ) );
         for ( $k = 0; $k < count($nowtime); $k++ ) {
