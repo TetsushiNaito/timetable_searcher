@@ -45,7 +45,7 @@ class TimeTable {
         for ( $j = 0; $j < $num; $j++ ) {
             //print "hogehoge\n";
 			// 終バス以降は表示対象にしない
-			if ( $i + $j > count( $this->times) ) { break; }
+			if ( $i + $j >= count( $this->times) ) { break; }
 			$result[] = $this->times[ $i + $j ];
 		}
         return $result;
