@@ -61,13 +61,15 @@ class SearchController extends Controller
         }
         $showTimeTable = new showTimeTable;
         $timetable_lines = $showTimeTable->show_timetable( $depr_poll, $dest_poll, $line_num, $holiday );
+        $timetable_lines_JSON = json_encode($timetable_lines);
         $data = [
             'deprs' => $deprs,
             'dests' => $dests,
             'depr_poll' => $depr_poll,
             'dest_poll' => $dest_poll,
             'line_num' => $line_num,
-            'timetable_lines' => $timetable_lines
+            'timetable_lines' => $timetable_lines,
+            'timetable_lines_JSON' => $timetable_lines_JSON
         ];
         return view( 'index', $data );
     }
