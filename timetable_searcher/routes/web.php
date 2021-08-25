@@ -28,3 +28,7 @@ Route::get( '/', function() {
 });
 
 Route::get( '/{depr_poll}/{dest_poll}/{line_num}/{holiday?}', 'App\Http\Controllers\SearchController@index' );
+
+Route::get('timetable', function() {
+    return view('app');
+});
