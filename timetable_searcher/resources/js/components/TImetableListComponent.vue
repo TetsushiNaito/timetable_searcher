@@ -1,19 +1,32 @@
 <template>
      <div class="container">
-                        {{ hogehoge }}
-            <label><b>出発：</b>
-                <select id="depr_poll_menu">
-<!--                    <option v-for="deprpolls in deprpoll" :keys="deprpoll.name">{{ deprpoll.name }}</option> -->
-                </select>
-            </label>
-            <label><b>行き先：</b>
-                <select id="dest_poll_menu">
-                    <option v-for="destpolls in destpoll" :keys="destpoll.name">{{ destpoll.name }}</option>
-                </select>
-            </label>
-         <table class="table table-hover">
-             <thead class="thead-light">
-             <tr>
+        <table class="table table-borderless">
+            <tr>
+                <td>
+                    <label><b>出発：</b>
+                    <select id="depr_poll_menu">
+                        <option v-for="depr in deprs" :key="depr.name" :value="depr.name">{{depr.name}}</option>
+                    </select>
+                    </label>
+                </td>
+                <td>
+                    <label><b>行き先：</b>
+                    <select id="dest_poll_menu">
+                        <option v-for="dest in dests" :key="dest.name" :value="dest.name">{{dest.name}}</option>
+                    </select>
+                    </label>
+                </td>
+                <td>
+                    <button class="btn btn-primary btn-sm">更新</button>
+                </td>
+                <td>
+                    <input type="checkbox" id="isholiday" value="1">今日は祝日ダイヤ</input>
+                </td>
+            </tr>
+        </table>
+        <table class="table table-hover">
+            <thead class="thead-light">
+            <tr>
                  <th scope="col">#</th>
                  <th scope="col">発車時刻</th>
                  <th scope="col">系統</th>
@@ -45,32 +58,15 @@
 </template>
  
 <script>
-function GetCookies()
-{
-    var result = new Array();
-
-    var allcookies = document.cookie;
-    if( allcookies != '' )
-    {
-        var cookies = allcookies.split( '; ' );
-
-        for( var i = 0; i < cookies.length; i++ )
-        {
-            var cookie = cookies[ i ].split( '=' );
-
-            // クッキーの名前をキーとして 配列に追加する
-            result[ cookie[ 0 ] ] = decodeURIComponent( cookie[ 1 ] );
-        }
-    }
-
-    return result;
-}
-alert(document.cookie );
-
     export default {
         data: function() {
             return {
-                hogehoge: 'hogehoge ' + Vue.$cookies.get('depr_polls') + 'hogehoge'
+//              hogehoge: 'hogehoge ' + Vue.$cookies.get('depr_polls') + 'hogehoge'
+                deprs: [ { name: '日吉駅東口' }, { name: '箕輪町' } ],
+                dests: [ { name: '宮前西町' }, { name: '日大高校正門' } ],
+                DeprPollName: document.getElementById( 'depr_poll_menu' ).value,
+                DestPollName: document.getElementById( 'dest_poll_menu' ).value,
+                IsHoliday: document.getElementById( 'isholiday' ).value
             }
         }
     }

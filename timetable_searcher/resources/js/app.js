@@ -35,7 +35,7 @@ const router = new VueRouter({
     mode: 'history',
     routes: [
         {
-            path: '/timetable',
+            path: '/:DeptPollName/:DestPollName/3/:IsHoliday',
             name: 'timetable.list',
             component: TimetableListComponent
         },

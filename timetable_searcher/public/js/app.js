@@ -1957,28 +1957,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-function GetCookies() {
-  var result = new Array();
-  var allcookies = document.cookie;
-
-  if (allcookies != '') {
-    var cookies = allcookies.split('; ');
-
-    for (var i = 0; i < cookies.length; i++) {
-      var cookie = cookies[i].split('='); // クッキーの名前をキーとして 配列に追加する
-
-      result[cookie[0]] = decodeURIComponent(cookie[1]);
-    }
-  }
-
-  return result;
-}
-
-alert(document.cookie);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      hogehoge: 'hogehoge ' + Vue.$cookies.get('depr_polls') + 'hogehoge'
+      //              hogehoge: 'hogehoge ' + Vue.$cookies.get('depr_polls') + 'hogehoge'
+      deprs: [{
+        name: '日吉駅東口'
+      }, {
+        name: '箕輪町'
+      }],
+      dests: [{
+        name: '宮前西町'
+      }, {
+        name: '日大高校正門'
+      }],
+      DeprPollName: document.getElementById('depr_poll_menu').value,
+      DestPollName: document.getElementById('dest_poll_menu').value,
+      IsHoliday: document.getElementById('isholiday').value
     };
   }
 });
@@ -2030,7 +2038,7 @@ vue__WEBPACK_IMPORTED_MODULE_3__.default.use((vue_cookies__WEBPACK_IMPORTED_MODU
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_4__.default({
   mode: 'history',
   routes: [{
-    path: '/timetable',
+    path: '/:DeptPollName/:DestPollName/3/:IsHoliday',
     name: 'timetable.list',
     component: _components_TimetableListComponent__WEBPACK_IMPORTED_MODULE_2__.default
   }]
@@ -37953,27 +37961,53 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _vm._v(
-      "\n                        " + _vm._s(_vm.hogehoge) + "\n            "
-    ),
-    _vm._m(0),
-    _vm._v(" "),
-    _c("label", [
-      _c("b", [_vm._v("行き先：")]),
-      _vm._v(" "),
-      _c(
-        "select",
-        { attrs: { id: "dest_poll_menu" } },
-        _vm._l(_vm.destpoll, function(destpolls) {
-          return _c("option", { attrs: { keys: _vm.destpoll.name } }, [
-            _vm._v(_vm._s(_vm.destpoll.name))
+    _c("table", { staticClass: "table table-borderless" }, [
+      _c("tr", [
+        _c("td", [
+          _c("label", [
+            _c("b", [_vm._v("出発：")]),
+            _vm._v(" "),
+            _c(
+              "select",
+              { attrs: { id: "depr_poll_menu" } },
+              _vm._l(_vm.deprs, function(depr) {
+                return _c(
+                  "option",
+                  { key: depr.name, domProps: { value: depr.name } },
+                  [_vm._v(_vm._s(depr.name))]
+                )
+              }),
+              0
+            )
           ])
-        }),
-        0
-      )
+        ]),
+        _vm._v(" "),
+        _c("td", [
+          _c("label", [
+            _c("b", [_vm._v("行き先：")]),
+            _vm._v(" "),
+            _c(
+              "select",
+              { attrs: { id: "dest_poll_menu" } },
+              _vm._l(_vm.dests, function(dest) {
+                return _c(
+                  "option",
+                  { key: dest.name, domProps: { value: dest.name } },
+                  [_vm._v(_vm._s(dest.name))]
+                )
+              }),
+              0
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _vm._m(0),
+        _vm._v(" "),
+        _vm._m(1)
+      ])
     ]),
     _vm._v(" "),
-    _vm._m(1)
+    _vm._m(2)
   ])
 }
 var staticRenderFns = [
@@ -37981,10 +38015,17 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", [
-      _c("b", [_vm._v("出発：")]),
-      _vm._v(" "),
-      _c("select", { attrs: { id: "depr_poll_menu" } })
+    return _c("td", [
+      _c("button", { staticClass: "btn btn-primary btn-sm" }, [_vm._v("更新")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("input", { attrs: { type: "checkbox", id: "isholiday", value: "1" } }),
+      _vm._v("今日は祝日ダイヤ")
     ])
   },
   function() {
