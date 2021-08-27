@@ -50,7 +50,7 @@ import { eventbus } from './../app.js';
                 dests: [ { name: '宮前西町' }, { name: '日大高校正門' } ],
                 depr_poll: '',
                 dest_poll: '',
-                isholiday: 0             
+                isholiday: "0"             
             }
         },
         methods: {

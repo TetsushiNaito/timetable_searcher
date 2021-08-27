@@ -46,19 +46,24 @@
                 url: ''
             }
         },
-        methods: {
-            getTables() {
+        watch: {
+            depr_poll: function(value) {
+                //alert( 'depr_poll ' + this.depr_poll );
                 const self = this;
-                self.url = self.buildURL();
-                alert( 'hoge ' + this.depr_poll );
+                self.getTables();
             },
-            buildURL() {
-                return 'http://localhost:8000/' + this.depr_poll + '/' + this.dest_poll + '/3/' + this.isholiday;
+            dest_poll: function(value) {
+                //alert( 'dest_poll ' + this.dest_poll );
+                const self = this;
+                self.getTables();
             }
         },
-        mounted: function() {
-            const self = this;
-            self.getTables();
+        methods: {
+            getTables: function() {
+                const self = this;
+                self.url = 'http://localhost:8000/' + this.depr_poll + '/' + this.dest_poll + '/3/' + self.isholiday;
+                alert( 'hoge '+ self.url )
+            }    
         }
     }
  </script>

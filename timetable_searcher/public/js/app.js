@@ -1939,7 +1939,7 @@ __webpack_require__.r(__webpack_exports__);
       }],
       depr_poll: '',
       dest_poll: '',
-      isholiday: 0
+      isholiday: "0"
     };
   },
   methods: {
@@ -2013,27 +2013,31 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     depr_poll: String,
     dest_poll: String,
-    isholiday: Number
+    isholiday: String
   },
   data: function data() {
     return {
       url: ''
     };
   },
-  methods: {
-    getTables: function getTables() {
-      var self = this; //self.url = self.buildURL();
-
-      alert('hoge ' + this.depr_poll);
-    },
-    buildURL: function buildURL() {
+  watch: {
+    depr_poll: function depr_poll(value) {
+      //alert( 'depr_poll ' + this.depr_poll );
       var self = this;
-      return 'http://localhost:8000/' + this.depr_poll + '/' + this.dest_poll + '/3/' + this.isholiday;
+      self.getTables();
+    },
+    dest_poll: function dest_poll(value) {
+      //alert( 'dest_poll ' + this.dest_poll );
+      var self = this;
+      self.getTables();
     }
   },
-  mounted: function mounted() {
-    var self = this;
-    self.getTables();
+  methods: {
+    getTables: function getTables() {
+      var self = this;
+      self.url = 'http://localhost:8000/' + this.depr_poll + '/' + this.dest_poll + '/3/' + self.isholiday;
+      alert('hoge ' + self.url);
+    }
   }
 });
 
