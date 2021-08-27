@@ -1,29 +1,5 @@
 <template>
      <div class="container">
-        <table class="table table-borderless">
-            <tr>
-                <td>
-                    <label><b>出発：</b>
-                    <select id="depr_poll_menu">
-                        <option v-for="depr in deprs" :key="depr.name" :value="depr.name">{{depr.name}}</option>
-                    </select>
-                    </label>
-                </td>
-                <td>
-                    <label><b>行き先：</b>
-                    <select id="dest_poll_menu">
-                        <option v-for="dest in dests" :key="dest.name" :value="dest.name">{{dest.name}}</option>
-                    </select>
-                    </label>
-                </td>
-                <td>
-                    <button class="btn btn-primary btn-sm">更新</button>
-                </td>
-                <td>
-                    <input type="checkbox" id="isholiday" value="1">今日は祝日ダイヤ</input>
-                </td>
-            </tr>
-        </table>
         <table class="table table-hover">
             <thead class="thead-light">
             <tr>
@@ -58,16 +34,31 @@
 </template>
  
 <script>
+//Vue.config.devtools = true;
     export default {
+        props: {
+            params: Array
+        },            
         data: function() {
             return {
-//              hogehoge: 'hogehoge ' + Vue.$cookies.get('depr_polls') + 'hogehoge'
-                deprs: [ { name: '日吉駅東口' }, { name: '箕輪町' } ],
-                dests: [ { name: '宮前西町' }, { name: '日大高校正門' } ],
-                DeprPollName: document.getElementById( 'depr_poll_menu' ).value,
-                DestPollName: document.getElementById( 'dest_poll_menu' ).value,
-                IsHoliday: document.getElementById( 'isholiday' ).value
+                url: '',
+                hoge: this.params 
             }
+        },
+        methods: {
+            getTables() {
+                const self = this;
+                self.url = self.buildURL();
+                alert( 'hoge ' + self.url );
+            },
+            buildURL() {
+                const self = this;
+                return 'http://localhost:8000/' + self.params[0] + '/' + self.params[1] + '/3/' + self.params[2];
+            }
+        },
+        mounted: function() {
+            const self = this;
+            self.getTables();
         }
     }
  </script>
