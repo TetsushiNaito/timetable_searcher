@@ -74,6 +74,17 @@ class SearchController extends Controller
         return view( 'index', $data );
     }
 
+    public function api( Request $request, $depr_poll, $dest_poll, $line_num, $holiday=0 ) {
+        $showTimeTable = new showTimeTable;
+        $timetable_lines = $showTimeTable->show_timetable( $depr_poll, $dest_poll, $line_num, $holiday );
+        $timetable_lines = json_encode($timetable_lines);
+        $data = [
+//            'timetable_lines' => $timetable_lines,
+            'timetable_lines_JSON' => $timetable_lines
+        ];
+        return view( 'app', $data );
+    }
+
     public function post( PollnameRequest $request ) {
 
         $depr_poll = $request->depr_poll;

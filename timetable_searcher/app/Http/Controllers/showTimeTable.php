@@ -53,13 +53,17 @@ class showTimeTable {
         $nowtime = $timetable->getDeptTimeNow( $line_num );
         //print_r( mb_convert_encoding( $nowtime, 'SJIS', 'UTF-8' ) );
         $line = [];
+        $line_count = count($nowtime);
         for ( $k = 0; $k < count($nowtime); $k++ ) {
-            $line[$k] = $nowtime[$k]->dept_time . " " . $nowtime[$k]->route_name . " " . $nowtime[$k]->note;
+            $line[$k] = [ $nowtime[$k]->dept_time, $nowtime[$k]->route_name, $nowtime[$k]->note ];
         }
+        // 終バス以降のデータは終了にする
+        if ( $line_count < $line_num ) {
+            for ( $l = $line_count; $l < $line_num; $l++ ) {
+                $line[$l] = ['終了', '', ''];
+            }
+        } 
         curl_close( $ch );
-        if ( count($line) == 0 ) {
-            $line[0] = "終了";
-        }
         return $line;
         //print_r( $table_all );
 

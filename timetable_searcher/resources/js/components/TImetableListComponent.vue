@@ -6,7 +6,7 @@
                  <th scope="col">#</th>
                  <th scope="col">発車時刻</th>
                  <th scope="col">系統</th>
-                 <th scope="col">行き先等備考</th>
+                 <th scope="col">行き先等備考 {{depr_poll}}</th>
              </tr>
              </thead>
              <tbody>
@@ -37,23 +37,23 @@
 //Vue.config.devtools = true;
     export default {
         props: {
-            params: Array
+            depr_poll: String,
+            dest_poll: String,
+            isholiday: String
         },            
         data: function() {
             return {
-                url: '',
-                hoge: this.params 
+                url: ''
             }
         },
         methods: {
             getTables() {
                 const self = this;
                 self.url = self.buildURL();
-                alert( 'hoge ' + self.url );
+                alert( 'hoge ' + this.depr_poll );
             },
             buildURL() {
-                const self = this;
-                return 'http://localhost:8000/' + self.params[0] + '/' + self.params[1] + '/3/' + self.params[2];
+                return 'http://localhost:8000/' + this.depr_poll + '/' + this.dest_poll + '/3/' + this.isholiday;
             }
         },
         mounted: function() {

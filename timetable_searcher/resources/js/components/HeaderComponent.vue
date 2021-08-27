@@ -12,14 +12,14 @@ import { eventbus } from './../app.js';
                     <tr>
                         <td>
                             <label><b>出発：</b>
-                                <select ref="depr_poll_menu">
+                                <select ref="depr_poll_menu" @change="changeDeprPoll">
                                     <option v-for="depr in deprs" :key="depr.name" :value="depr.name">{{depr.name}}</option>
                                 </select>
                             </label>
                         </td>
                         <td>
                             <label><b>行き先：</b>
-                                <select ref="dest_poll_menu">
+                                <select ref="dest_poll_menu" @change="changeDestPoll">
                                     <option v-for="dest in dests" :key="dest.name" :value="dest.name">{{dest.name}}</option>
                                 </select>
                             </label>
@@ -36,7 +36,7 @@ import { eventbus } from './../app.js';
                 </tbody>
                 </table>
             </div>
-            <router-view :params='params'></router-view>
+            <router-view :depr_poll='depr_poll' :dest_poll='dest_poll' :isholiday='isholiday'></router-view>
          </div>
      </div>
  </template>
@@ -48,16 +48,26 @@ import { eventbus } from './../app.js';
 //              hogehoge: 'hogehoge ' + Vue.$cookies.get('depr_polls') + 'hogehoge'
                 deprs: [ { name: '日吉駅東口' }, { name: '箕輪町' } ],
                 dests: [ { name: '宮前西町' }, { name: '日大高校正門' } ],
-                params: []    
+                depr_poll: '',
+                dest_poll: '',
+                isholiday: 0             
             }
         },
-        mounted: function () {
-            const self = this;
-            self.params = [
-                this.$refs.depr_poll_menu.value,
-                this.$refs.dest_poll_menu.value,
-                this.$refs.isholiday.value
-            ];    
+        methods: {
+            changeDeprPoll: function() {
+                const self = this;
+                self.depr_poll = this.$refs.depr_poll_menu.value;
+            },
+            changeDestPoll: function() {
+                const self = this;
+                self.dest_poll = this.$refs.dest_poll_menu.value;
+            }
+        },
+        mounted: function() {
+                const self = this;
+                self.depr_poll = this.$refs.depr_poll_menu.value;
+                self.dest_poll = this.$refs.dest_poll_menu.value;
+                self.isholiday = this.$refs.isholiday.value;
         }
     }
  </script>

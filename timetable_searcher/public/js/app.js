@@ -1896,7 +1896,69 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      //              hogehoge: 'hogehoge ' + Vue.$cookies.get('depr_polls') + 'hogehoge'
+      deprs: [{
+        name: '日吉駅東口'
+      }, {
+        name: '箕輪町'
+      }],
+      dests: [{
+        name: '宮前西町'
+      }, {
+        name: '日大高校正門'
+      }],
+      depr_poll: '',
+      dest_poll: '',
+      isholiday: 0
+    };
+  },
+  methods: {
+    changeDeprPoll: function changeDeprPoll() {
+      var self = this;
+      self.depr_poll = this.$refs.depr_poll_menu.value;
+    },
+    changeDestPoll: function changeDestPoll() {
+      var self = this;
+      self.dest_poll = this.$refs.dest_poll_menu.value;
+    }
+  },
+  mounted: function mounted() {
+    var self = this;
+    self.depr_poll = this.$refs.depr_poll_menu.value;
+    self.dest_poll = this.$refs.dest_poll_menu.value;
+    self.isholiday = this.$refs.isholiday.value;
+  }
+});
 
 /***/ }),
 
@@ -1946,48 +2008,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+//Vue.config.devtools = true;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    depr_poll: String,
+    dest_poll: String,
+    isholiday: Number
+  },
   data: function data() {
     return {
-      //              hogehoge: 'hogehoge ' + Vue.$cookies.get('depr_polls') + 'hogehoge'
-      deprs: [{
-        name: '日吉駅東口'
-      }, {
-        name: '箕輪町'
-      }],
-      dests: [{
-        name: '宮前西町'
-      }, {
-        name: '日大高校正門'
-      }],
-      DeprPollName: document.getElementById('depr_poll_menu').value,
-      DestPollName: document.getElementById('dest_poll_menu').value,
-      IsHoliday: document.getElementById('isholiday').value
+      url: ''
     };
+  },
+  methods: {
+    getTables: function getTables() {
+      var self = this; //self.url = self.buildURL();
+
+      alert('hoge ' + this.depr_poll);
+    },
+    buildURL: function buildURL() {
+      var self = this;
+      return 'http://localhost:8000/' + this.depr_poll + '/' + this.dest_poll + '/3/' + this.isholiday;
+    }
+  },
+  mounted: function mounted() {
+    var self = this;
+    self.getTables();
   }
 });
 
@@ -2014,6 +2060,8 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 
+/* import axios from 'axios'; */
+
 
 
 
@@ -2035,19 +2083,21 @@ vue__WEBPACK_IMPORTED_MODULE_3__.default.component('example-component', __webpac
 vue__WEBPACK_IMPORTED_MODULE_3__.default.component('header-component', _components_HeaderComponent__WEBPACK_IMPORTED_MODULE_1__.default);
 vue__WEBPACK_IMPORTED_MODULE_3__.default.use(vue_router__WEBPACK_IMPORTED_MODULE_4__.default);
 vue__WEBPACK_IMPORTED_MODULE_3__.default.use((vue_cookies__WEBPACK_IMPORTED_MODULE_0___default()));
+/* Vue.use(axios); */
+
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_4__.default({
   mode: 'history',
   routes: [{
-    path: '/:DeptPollName/:DestPollName/3/:IsHoliday',
+    path: '/timetable',
     name: 'timetable.list',
     component: _components_TimetableListComponent__WEBPACK_IMPORTED_MODULE_2__.default
   }]
 });
 /**
-* Next, we will create a fresh Vue application instance and attach it to
-* the page. Then, you may begin adding components to this application
-* or customize the JavaScript scaffolding to fit your unique needs.
-*/
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
+ */
 
 var app = new vue__WEBPACK_IMPORTED_MODULE_3__.default({
   el: '#app',
@@ -37913,31 +37963,116 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container-fluid bg-dark mb-3" }, [
-    _c("div", { staticClass: "container" }, [
-      _c("nav", { staticClass: "navbar navbar-dark" }, [
-        _c("span", { staticClass: "navbar-brand mb-0 h1" }, [
-          _vm._v("Timetable Searcher")
+  return _c("div", { staticClass: "container-fluid bg-light mb-3" }, [
+    _c(
+      "div",
+      { staticClass: "container" },
+      [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", [
+          _c("table", { staticClass: "table table-borderless" }, [
+            _c("tbody", [
+              _c("tr", [
+                _c("td", [
+                  _c("label", [
+                    _c("b", [_vm._v("出発：")]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        ref: "depr_poll_menu",
+                        on: { change: _vm.changeDeprPoll }
+                      },
+                      _vm._l(_vm.deprs, function(depr) {
+                        return _c(
+                          "option",
+                          { key: depr.name, domProps: { value: depr.name } },
+                          [_vm._v(_vm._s(depr.name))]
+                        )
+                      }),
+                      0
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _c("label", [
+                    _c("b", [_vm._v("行き先：")]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        ref: "dest_poll_menu",
+                        on: { change: _vm.changeDestPoll }
+                      },
+                      _vm._l(_vm.dests, function(dest) {
+                        return _c(
+                          "option",
+                          { key: dest.name, domProps: { value: dest.name } },
+                          [_vm._v(_vm._s(dest.name))]
+                        )
+                      }),
+                      0
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "td",
+                  { staticStyle: { width: "100px" } },
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { to: { name: "timetable.list" } } },
+                      [
+                        _c(
+                          "button",
+                          { staticClass: "btn btn-primary btn-sm" },
+                          [_vm._v("更新")]
+                        )
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("td", [
+                  _c("input", {
+                    ref: "isholiday",
+                    attrs: { type: "checkbox", value: "1" }
+                  }),
+                  _vm._v("今日は祝日ダイヤ")
+                ])
+              ])
+            ])
+          ])
         ]),
         _vm._v(" "),
-        _c(
-          "div",
-          [
-            _c("router-link", { attrs: { to: { name: "timetable.list" } } }, [
-              _c("button", { staticClass: "btn btn-success" }, [
-                _vm._v("Reload")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("button", { staticClass: "btn btn-success" }, [_vm._v("ADD")])
-          ],
-          1
-        )
-      ])
-    ])
+        _c("router-view", {
+          attrs: {
+            depr_poll: _vm.depr_poll,
+            dest_poll: _vm.dest_poll,
+            isholiday: _vm.isholiday
+          }
+        })
+      ],
+      1
+    )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("nav", { staticClass: "navbar navbar-light" }, [
+      _c("span", { staticClass: "navbar-brand mb-0 h1" }, [
+        _vm._v("Timetable Searcher")
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -37961,78 +38096,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("table", { staticClass: "table table-borderless" }, [
-      _c("tr", [
-        _c("td", [
-          _c("label", [
-            _c("b", [_vm._v("出発：")]),
-            _vm._v(" "),
-            _c(
-              "select",
-              { attrs: { id: "depr_poll_menu" } },
-              _vm._l(_vm.deprs, function(depr) {
-                return _c(
-                  "option",
-                  { key: depr.name, domProps: { value: depr.name } },
-                  [_vm._v(_vm._s(depr.name))]
-                )
-              }),
-              0
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("td", [
-          _c("label", [
-            _c("b", [_vm._v("行き先：")]),
-            _vm._v(" "),
-            _c(
-              "select",
-              { attrs: { id: "dest_poll_menu" } },
-              _vm._l(_vm.dests, function(dest) {
-                return _c(
-                  "option",
-                  { key: dest.name, domProps: { value: dest.name } },
-                  [_vm._v(_vm._s(dest.name))]
-                )
-              }),
-              0
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _vm._m(0),
-        _vm._v(" "),
-        _vm._m(1)
-      ])
-    ]),
-    _vm._v(" "),
-    _vm._m(2)
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("button", { staticClass: "btn btn-primary btn-sm" }, [_vm._v("更新")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("input", { attrs: { type: "checkbox", id: "isholiday", value: "1" } }),
-      _vm._v("今日は祝日ダイヤ")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("table", { staticClass: "table table-hover" }, [
+    _c("table", { staticClass: "table table-hover" }, [
       _c("thead", { staticClass: "thead-light" }, [
         _c("tr", [
           _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
@@ -38041,40 +38105,50 @@ var staticRenderFns = [
           _vm._v(" "),
           _c("th", { attrs: { scope: "col" } }, [_vm._v("系統")]),
           _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }, [_vm._v("行き先等備考")])
+          _c("th", { attrs: { scope: "col" } }, [
+            _vm._v("行き先等備考 " + _vm._s(_vm.depr_poll))
+          ])
         ])
       ]),
       _vm._v(" "),
-      _c("tbody", [
-        _c("tr", [
-          _c("th", { attrs: { scope: "row" } }, [_vm._v("1")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("09:58")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("日９２")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("住.住宅経由綱島駅行")])
-        ]),
+      _vm._m(0)
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tbody", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "row" } }, [_vm._v("1")]),
         _vm._v(" "),
-        _c("tr", [
-          _c("th", { attrs: { scope: "row" } }, [_vm._v("2")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("10:15")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("日９５")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("Ｔ.東急バス")])
-        ]),
+        _c("td", [_vm._v("09:58")]),
         _vm._v(" "),
-        _c("tr", [
-          _c("th", { attrs: { scope: "row" } }, [_vm._v("3")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("10:17")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("日９２")]),
-          _vm._v(" "),
-          _c("td", [_vm._v("住.住宅経由綱島駅行")])
-        ])
+        _c("td", [_vm._v("日９２")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("住.住宅経由綱島駅行")])
+      ]),
+      _vm._v(" "),
+      _c("tr", [
+        _c("th", { attrs: { scope: "row" } }, [_vm._v("2")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("10:15")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("日９５")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Ｔ.東急バス")])
+      ]),
+      _vm._v(" "),
+      _c("tr", [
+        _c("th", { attrs: { scope: "row" } }, [_vm._v("3")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("10:17")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("日９２")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("住.住宅経由綱島駅行")])
       ])
     ])
   }
