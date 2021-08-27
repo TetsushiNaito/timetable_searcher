@@ -1950,6 +1950,10 @@ __webpack_require__.r(__webpack_exports__);
     changeDestPoll: function changeDestPoll() {
       var self = this;
       self.dest_poll = this.$refs.dest_poll_menu.value;
+    },
+    changeIsHoliday: function changeIsHoliday() {
+      var self = this;
+      this.$refs.isholiday.checked ? self.isholiday = "1" : self.isholiday = "0";
     }
   },
   mounted: function mounted() {
@@ -2024,19 +2028,29 @@ __webpack_require__.r(__webpack_exports__);
     depr_poll: function depr_poll(value) {
       //alert( 'depr_poll ' + this.depr_poll );
       var self = this;
-      self.getTables();
+      self.makeURL();
     },
     dest_poll: function dest_poll(value) {
       //alert( 'dest_poll ' + this.dest_poll );
       var self = this;
-      self.getTables();
+      self.makeURL();
+    },
+    isholiday: function isholiday(value) {
+      var self = this;
+      self.makeURL();
     }
   },
   methods: {
-    getTables: function getTables() {
+    makeURL: function makeURL() {
       var self = this;
-      self.url = 'http://localhost:8000/' + this.depr_poll + '/' + this.dest_poll + '/3/' + self.isholiday;
-      alert('hoge ' + self.url);
+      self.url_now = 'http://localhost:8000/' + this.depr_poll + '/' + this.dest_poll + '/3/' + this.isholiday;
+
+      if (self.url == self.url_now) {
+        return;
+      }
+
+      self.url = self.url_now;
+      alert('hoge ' + self.url_now);
     }
   }
 });
@@ -38022,6 +38036,15 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
+                _c("td", [
+                  _c("input", {
+                    ref: "isholiday",
+                    attrs: { type: "checkbox", value: "0" },
+                    on: { change: _vm.changeIsHoliday }
+                  }),
+                  _vm._v("祝日ダイヤ")
+                ]),
+                _vm._v(" "),
                 _c(
                   "td",
                   { staticStyle: { width: "100px" } },
@@ -38039,15 +38062,7 @@ var render = function() {
                     )
                   ],
                   1
-                ),
-                _vm._v(" "),
-                _c("td", [
-                  _c("input", {
-                    ref: "isholiday",
-                    attrs: { type: "checkbox", value: "1" }
-                  }),
-                  _vm._v("今日は祝日ダイヤ")
-                ])
+                )
               ])
             ])
           ])
@@ -38099,60 +38114,58 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("table", { staticClass: "table table-hover" }, [
-      _c("thead", { staticClass: "thead-light" }, [
-        _c("tr", [
-          _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }, [_vm._v("発車時刻")]),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }, [_vm._v("系統")]),
-          _vm._v(" "),
-          _c("th", { attrs: { scope: "col" } }, [
-            _vm._v("行き先等備考 " + _vm._s(_vm.depr_poll))
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _vm._m(0)
-    ])
-  ])
+  return _vm._m(0)
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("tbody", [
-      _c("tr", [
-        _c("th", { attrs: { scope: "row" } }, [_vm._v("1")]),
+    return _c("div", { staticClass: "container" }, [
+      _c("table", { staticClass: "table table-hover" }, [
+        _c("thead", { staticClass: "thead-light" }, [
+          _c("tr", [
+            _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
+            _vm._v(" "),
+            _c("th", { attrs: { scope: "col" } }, [_vm._v("発車時刻")]),
+            _vm._v(" "),
+            _c("th", { attrs: { scope: "col" } }, [_vm._v("系統")]),
+            _vm._v(" "),
+            _c("th", { attrs: { scope: "col" } }, [_vm._v("行き先等備考")])
+          ])
+        ]),
         _vm._v(" "),
-        _c("td", [_vm._v("09:58")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("日９２")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("住.住宅経由綱島駅行")])
-      ]),
-      _vm._v(" "),
-      _c("tr", [
-        _c("th", { attrs: { scope: "row" } }, [_vm._v("2")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("10:15")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("日９５")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("Ｔ.東急バス")])
-      ]),
-      _vm._v(" "),
-      _c("tr", [
-        _c("th", { attrs: { scope: "row" } }, [_vm._v("3")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("10:17")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("日９２")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("住.住宅経由綱島駅行")])
+        _c("tbody", [
+          _c("tr", [
+            _c("th", { attrs: { scope: "row" } }, [_vm._v("1")]),
+            _vm._v(" "),
+            _c("td", [_vm._v("09:58")]),
+            _vm._v(" "),
+            _c("td", [_vm._v("日９２")]),
+            _vm._v(" "),
+            _c("td", [_vm._v("住.住宅経由綱島駅行")])
+          ]),
+          _vm._v(" "),
+          _c("tr", [
+            _c("th", { attrs: { scope: "row" } }, [_vm._v("2")]),
+            _vm._v(" "),
+            _c("td", [_vm._v("10:15")]),
+            _vm._v(" "),
+            _c("td", [_vm._v("日９５")]),
+            _vm._v(" "),
+            _c("td", [_vm._v("Ｔ.東急バス")])
+          ]),
+          _vm._v(" "),
+          _c("tr", [
+            _c("th", { attrs: { scope: "row" } }, [_vm._v("3")]),
+            _vm._v(" "),
+            _c("td", [_vm._v("10:17")]),
+            _vm._v(" "),
+            _c("td", [_vm._v("日９２")]),
+            _vm._v(" "),
+            _c("td", [_vm._v("住.住宅経由綱島駅行")])
+          ])
+        ])
       ])
     ])
   }

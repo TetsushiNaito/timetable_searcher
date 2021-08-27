@@ -24,13 +24,13 @@ import { eventbus } from './../app.js';
                                 </select>
                             </label>
                         </td>
+                        <td>
+                            <input type="checkbox" ref="isholiday" @change="changeIsHoliday" value="0">祝日ダイヤ</input>
+                        </td>
                         <td style="width:100px">
                         <router-link v-bind:to="{name: 'timetable.list'}">
                             <button class="btn btn-primary btn-sm">更新</button>
                         </router-link>
-                        </td>
-                        <td>
-                            <input type="checkbox" ref="isholiday" value="1">今日は祝日ダイヤ</input>
                         </td>
                     </tr>
                 </tbody>
@@ -61,6 +61,10 @@ import { eventbus } from './../app.js';
             changeDestPoll: function() {
                 const self = this;
                 self.dest_poll = this.$refs.dest_poll_menu.value;
+            },
+            changeIsHoliday: function() {
+                const self = this;
+                ( this.$refs.isholiday.checked ) ? self.isholiday = "1" : self.isholiday = "0";
             }
         },
         mounted: function() {

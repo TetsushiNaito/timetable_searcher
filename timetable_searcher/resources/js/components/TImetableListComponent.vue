@@ -6,7 +6,7 @@
                  <th scope="col">#</th>
                  <th scope="col">発車時刻</th>
                  <th scope="col">系統</th>
-                 <th scope="col">行き先等備考 {{depr_poll}}</th>
+                 <th scope="col">行き先等備考</th>
              </tr>
              </thead>
              <tbody>
@@ -50,19 +50,25 @@
             depr_poll: function(value) {
                 //alert( 'depr_poll ' + this.depr_poll );
                 const self = this;
-                self.getTables();
+                self.makeURL();
             },
             dest_poll: function(value) {
                 //alert( 'dest_poll ' + this.dest_poll );
                 const self = this;
-                self.getTables();
+                self.makeURL();
+            },
+            isholiday: function(value) {
+                const self = this;
+                self.makeURL();
             }
         },
         methods: {
-            getTables: function() {
+            makeURL: function() {
                 const self = this;
-                self.url = 'http://localhost:8000/' + this.depr_poll + '/' + this.dest_poll + '/3/' + self.isholiday;
-                alert( 'hoge '+ self.url )
+                self.url_now = 'http://localhost:8000/' + this.depr_poll + '/' + this.dest_poll + '/3/' + this.isholiday;
+                if ( self.url == self.url_now ) { return; }
+                self.url = self.url_now;
+                alert( 'hoge '+ self.url_now )
             }    
         }
     }
