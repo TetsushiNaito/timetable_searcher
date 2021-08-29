@@ -30,12 +30,6 @@
         data: function() {
             return {
             }
-        },
-        watch: {
-            items: function( value ) {
-                const self = this;
-                self.items = value;
-            }
         }
     }
  </script>

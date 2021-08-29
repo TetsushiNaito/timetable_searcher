@@ -7,10 +7,11 @@ import VueCookies from 'vue-cookies';
 import VueAxios from 'vue-axios';
 import axios from 'axios';
 
-
 import HeaderComponent from "./components/HeaderComponent";
 import TimetableListComponent from "./components/TimetableListComponent";
 import TimetableWaitComponent from "./components/TimetableWaitComponent";
+import DigitalClockComponent from "./components/DigitalClockComponent";
+
 import Vue from 'vue';
 
 require('./bootstrap');
@@ -32,6 +33,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('header-component', HeaderComponent);
 Vue.component('timetable-wait-component', TimetableWaitComponent);
 Vue.component('timetable-list-component', TimetableListComponent);
+Vue.component('digital-clock', DigitalClockComponent);
 
 Vue.use(VueCookies);
 Vue.use(VueAxios, axios);

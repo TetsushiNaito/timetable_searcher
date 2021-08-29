@@ -1,11 +1,12 @@
-import { eventbus } from './../app.js';
-
 <template>
      <div class="container-fluid bg-light mb-3">
          <div class="container">
              <nav class="navbar navbar-light">
                  <span class="navbar-brand mb-0 h1">Timetable Searcher</span>
              </nav>
+             <div>
+             <digital-clock></digital-clock>
+             </div>
              <div>
                 <table class="table table-borderless">
                 <tbody>
