@@ -69,6 +69,7 @@ import { eventbus } from './../app.js';
             },
             searchTimetable: function() {
                 const self = this;
+                self.url = 'http://localhost/' + self.depr_poll + '/' + self.dest_poll + '/3/' + self.isholiday;
                 self.timetable_component = 'timetable-wait-component';
                 alert ('url: '+self.url)
                 this.axios.get(self.url).then((response) => {
