@@ -10,11 +10,11 @@
              </tr>
              </thead>
              <tbody>
-             <tr v-for "item in items" :key="items.num">
-                 <th scope="row">{{items.num}}</th>
-                 <td>{{item[0]}}</td>
-                 <td>{{item[1]}}</td>
-                 <td>{{item[2]}}</td>
+             <tr v-for="item in items" :key="item.id">
+                    <th scope="row">{{item.id}}</th>
+                    <td>{{item.dept_time}}</td>
+                    <td>{{item.route_name}}</td>
+                    <td>{{item.note}}</td>
              </tr>
              </tbody>
          </table>
@@ -25,10 +25,16 @@
 //Vue.config.devtools = true;
     export default {
         props: {
-            items: Array
+            items: Array,
         },            
         data: function() {
             return {
+            }
+        },
+        watch: {
+            items: function( value ) {
+                const self = this;
+                self.items = value;
             }
         }
     }

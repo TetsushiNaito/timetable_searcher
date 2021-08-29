@@ -32,3 +32,7 @@ Route::get( '/{depr_poll}/{dest_poll}/{line_num}/{holiday?}', 'App\Http\Controll
 Route::get('timetable', function() {
     return view('app');
 });
+
+Route::get('loading', function() {
+    return view('loading');
+});

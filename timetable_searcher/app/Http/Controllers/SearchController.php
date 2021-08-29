@@ -78,11 +78,12 @@ class SearchController extends Controller
         $showTimeTable = new showTimeTable;
         $timetable_lines = $showTimeTable->show_timetable( $depr_poll, $dest_poll, $line_num, $holiday );
         $timetable_lines = json_encode($timetable_lines);
-        $data = [
+ //       $data = [
 //            'timetable_lines' => $timetable_lines,
-            'timetable_lines_JSON' => $timetable_lines
-        ];
-        return view( 'app', $data );
+//            'timetable_lines_JSON' => $timetable_lines
+//        ];
+//        return view( 'api', $data );
+        print $timetable_lines;
     }
 
     public function post( PollnameRequest $request ) {

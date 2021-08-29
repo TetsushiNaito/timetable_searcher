@@ -49,6 +49,7 @@ import { eventbus } from './../app.js';
                 depr_poll: '',
                 dest_poll: '',
                 isholiday: "0",
+                items: [],
                 url: '',
                 timetable_component : 'timetable-wait-component'
             }
@@ -66,21 +67,19 @@ import { eventbus } from './../app.js';
                 const self = this;
                 ( this.$refs.isholiday.checked ) ? self.isholiday = "1" : self.isholiday = "0";
             },
-            searchTimeTable: function() {
+            searchTimetable: function() {
                 const self = this;
-                if ( self.url == '' ) {
-                    timetable_component = 'timetable-wait-component';
-                }
-                else {
-                    this.axios.get(url).then((response) => {
-                            alert(response.data.origin);
-                        })
-                        .catch((e) => {
-                            alert(e);
-                        });
-                }
+                self.timetable_component = 'timetable-wait-component';
+                alert ('url: '+self.url)
+                this.axios.get(self.url).then((response) => {
+                    self.items = response.data;
+                    alert( self.items );
+                    self.timetable_component = 'timetable-list-component';
+                })
+                .catch((e) => {
+                    alert(e);
+                });
             }
-        
         },
         mounted: function() {
                 const self = this;
@@ -88,7 +87,6 @@ import { eventbus } from './../app.js';
                 self.dest_poll = this.$refs.dest_poll_menu.value;
                 self.isholiday = this.$refs.isholiday.value;
                 self.url = 'http://localhost/' + self.depr_poll + '/' + self.dest_poll + '/3/' + self.isholiday;
-                alert( 'fugafuga '+url );
         }
 
     }

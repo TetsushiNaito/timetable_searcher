@@ -1938,6 +1938,7 @@ __webpack_require__.r(__webpack_exports__);
       depr_poll: '',
       dest_poll: '',
       isholiday: "0",
+      items: [],
       url: '',
       timetable_component: 'timetable-wait-component'
     };
@@ -1955,18 +1956,17 @@ __webpack_require__.r(__webpack_exports__);
       var self = this;
       this.$refs.isholiday.checked ? self.isholiday = "1" : self.isholiday = "0";
     },
-    searchTimeTable: function searchTimeTable() {
+    searchTimetable: function searchTimetable() {
       var self = this;
-
-      if (self.url == '') {
-        timetable_component = 'timetable-wait-component';
-      } else {
-        this.axios.get(url).then(function (response) {
-          alert(response.data.origin);
-        })["catch"](function (e) {
-          alert(e);
-        });
-      }
+      self.timetable_component = 'timetable-wait-component';
+      alert('url: ' + self.url);
+      this.axios.get(self.url).then(function (response) {
+        self.items = response.data;
+        alert(self.items);
+        self.timetable_component = 'timetable-list-component';
+      })["catch"](function (e) {
+        alert(e);
+      });
     }
   },
   mounted: function mounted() {
@@ -1975,7 +1975,6 @@ __webpack_require__.r(__webpack_exports__);
     self.dest_poll = this.$refs.dest_poll_menu.value;
     self.isholiday = this.$refs.isholiday.value;
     self.url = 'http://localhost/' + self.depr_poll + '/' + self.dest_poll + '/3/' + self.isholiday;
-    alert('fugafuga ' + url);
   }
 });
 
@@ -2022,6 +2021,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {};
+  },
+  watch: {
+    items: function items(value) {
+      var self = this;
+      self.items = value;
+    }
   }
 });
 
@@ -6571,21 +6576,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 })));
 //# sourceMappingURL=bootstrap.js.map
 
-
-/***/ }),
-
-/***/ "./resources/images/loading.gif":
-/*!**************************************!*\
-  !*** ./resources/images/loading.gif ***!
-  \**************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/loading.gif?9cac16c340dd920993ba1be0939611c9");
 
 /***/ }),
 
@@ -38153,16 +38143,21 @@ var render = function() {
     _c("table", { staticClass: "table table-hover" }, [
       _vm._m(0),
       _vm._v(" "),
-      _c("tbody", [
-        _vm._v(' "item in items" :key="items.num">\n            '),
-        _c("th", { attrs: { scope: "row" } }, [_vm._v(_vm._s(_vm.items.num))]),
-        _vm._v(" "),
-        _c("td", [_vm._v(_vm._s(_vm.item[0]))]),
-        _vm._v(" "),
-        _c("td", [_vm._v(_vm._s(_vm.item[1]))]),
-        _vm._v(" "),
-        _c("td", [_vm._v(_vm._s(_vm.item[2]))])
-      ])
+      _c(
+        "tbody",
+        _vm._l(_vm.items, function(item) {
+          return _c("tr", { key: item.id }, [
+            _c("th", { attrs: { scope: "row" } }, [_vm._v(_vm._s(item.id))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(item.dept_time))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(item.route_name))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(item.note))])
+          ])
+        }),
+        0
+      )
     ])
   ])
 }
@@ -38206,7 +38201,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("img", { attrs: { src: __webpack_require__(/*! ../../images/loading.gif */ "./resources/images/loading.gif") } })
+  return _c("img", { attrs: { src: "http://localhost/images/loading.gif" } })
 }
 var staticRenderFns = []
 render._withStripped = true

@@ -55,7 +55,11 @@ class showTimeTable {
         $line = [];
         $line_count = count($nowtime);
         for ( $k = 0; $k < count($nowtime); $k++ ) {
-            $line[$k] = [ $nowtime[$k]->dept_time, $nowtime[$k]->route_name, $nowtime[$k]->note ];
+            $line[$k] = [
+                'id' => $k + 1,
+                'dept_time' => $nowtime[$k]->dept_time,
+                'route_name' => $nowtime[$k]->route_name,
+                'note' => $nowtime[$k]->note ];
         }
         // 終バス以降のデータは終了にする
         if ( $line_count < $line_num ) {
