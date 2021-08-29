@@ -27,16 +27,14 @@ import { eventbus } from './../app.js';
                         <td>
                             <input type="checkbox" ref="isholiday" @change="changeIsHoliday" value="0">祝日ダイヤ</input>
                         </td>
-                        <td style="width:100px">
-                        <router-link v-bind:to="{name: 'timetable.list'}">
-                            <button class="btn btn-primary btn-sm">更新</button>
-                        </router-link>
+                        <td style="width:120px">
+                            <button class="btn btn-primary btn-sm" @click="searchTimetable">更新</button>
                         </td>
                     </tr>
                 </tbody>
                 </table>
             </div>
-            <router-view :depr_poll='depr_poll' :dest_poll='dest_poll' :isholiday='isholiday'></router-view>
+            <component :is="timetable_component" :items="items"></component>
          </div>
      </div>
  </template>
@@ -50,7 +48,9 @@ import { eventbus } from './../app.js';
                 dests: [ { name: '宮前西町' }, { name: '日大高校正門' } ],
                 depr_poll: '',
                 dest_poll: '',
-                isholiday: "0"             
+                isholiday: "0",
+                url: '',
+                timetable_component : 'timetable-wait-component'
             }
         },
         methods: {
@@ -65,13 +65,31 @@ import { eventbus } from './../app.js';
             changeIsHoliday: function() {
                 const self = this;
                 ( this.$refs.isholiday.checked ) ? self.isholiday = "1" : self.isholiday = "0";
+            },
+            searchTimeTable: function() {
+                const self = this;
+                if ( self.url == '' ) {
+                    timetable_component = 'timetable-wait-component';
+                }
+                else {
+                    this.axios.get(url).then((response) => {
+                            alert(response.data.origin);
+                        })
+                        .catch((e) => {
+                            alert(e);
+                        });
+                }
             }
+        
         },
         mounted: function() {
                 const self = this;
                 self.depr_poll = this.$refs.depr_poll_menu.value;
                 self.dest_poll = this.$refs.dest_poll_menu.value;
                 self.isholiday = this.$refs.isholiday.value;
+                self.url = 'http://localhost/' + self.depr_poll + '/' + self.dest_poll + '/3/' + self.isholiday;
+                alert( 'fugafuga '+url );
         }
+
     }
  </script>
