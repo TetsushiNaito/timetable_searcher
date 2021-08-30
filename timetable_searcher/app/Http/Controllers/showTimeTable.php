@@ -64,7 +64,10 @@ class showTimeTable {
         // 終バス以降のデータは終了にする
         if ( $line_count < $line_num ) {
             for ( $l = $line_count; $l < $line_num; $l++ ) {
-                $line[$l] = ['終了', '', ''];
+                $line[$l] = ['id' => $l +1 ,
+                            'dept_time' => '終了',
+                            'route_name' => '---',
+                            'note' => '---' ];
             }
         } 
         curl_close( $ch );
