@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p>{{ clock }}</p>
+        <h2 class="text-center">{{ clock }}</h2>
     </div>
 </template>
 
