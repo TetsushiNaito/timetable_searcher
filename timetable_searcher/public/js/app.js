@@ -39197,7 +39197,13 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", [
-      _c("p", [_vm._v("この路線の時刻表データがありません。ご了承ください。")])
+      _c("p", [
+        _vm._v(
+          "出発地からその行き先へ到達するための時刻表データがありません。"
+        ),
+        _c("br"),
+        _vm._v("\r\nご了承ください。")
+      ])
     ])
   }
 ]
