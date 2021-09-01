@@ -25,11 +25,13 @@
                                 </select>
                             </label>
                         </td>
-                        <td>
-                            <input type="checkbox" ref="isholiday" @change="changeIsHoliday" value="0">祝日ダイヤ</input>
-                        </td>
-                        <td style="width:120px">
+                        <td rowspan="2" style="width:120px">
                             <button class="btn btn-primary btn-sm" @click="searchTimetable">更新</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="checkbox" ref="isholiday" @change="changeIsHoliday" value="0">祝日ダイヤ</input>
                         </td>
                     </tr>
                 </tbody>
