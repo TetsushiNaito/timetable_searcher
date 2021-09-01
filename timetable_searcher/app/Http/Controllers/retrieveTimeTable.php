@@ -7,9 +7,10 @@ function retrieveTimeTable( $day, $timetables ) {
         $filtereds = array_filter( $timetable, function($value) use ($day) {
             return preg_match( '/'.$day.'/', $value, $array );
         });
-        foreach( $filtereds as $filtered ) {
-            $results[] = $filtered;
-        }
+    }
+    // 時刻表が無かった場合は抜ける
+    foreach( $filtereds as $filtered ) {
+        $results[] = $filtered;
     }
     return $results;
 }

@@ -25,6 +25,7 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "lodash.debounce": "^4.0.8",
         "vue-axios": "^3.2.5",
         "vue-cookies": "^1.7.4",
         "vue-router": "^3.5.2"

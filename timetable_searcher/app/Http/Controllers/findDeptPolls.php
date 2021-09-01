@@ -40,7 +40,10 @@ function findDeptPolls( $handle, $startpolls, $destpolls ) {
             $access_token = Config::get('access.token');  
             $url = $baseurl.'odpt:BusroutePattern?acl:consumerKey='. $access_token . "&owl:sameAs={$route_names[1]}";
             //print "$url\n";
-            $results = getDataFromAPI( $handle, $url );              
+            $results = getDataFromAPI( $handle, $url ); 
+            if ( gettype( $results ) == 'string' ) {
+                return [ $results, 0 ];
+            }
 
             //検索した路線ごとにチェックする
             foreach ( $results as $result ) {

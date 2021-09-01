@@ -6,11 +6,16 @@
 import VueCookies from 'vue-cookies';
 import VueAxios from 'vue-axios';
 import axios from 'axios';
+import debounce from 'lodash.debounce';
 
 import HeaderComponent from "./components/HeaderComponent";
 import TimetableListComponent from "./components/TimetableListComponent";
 import TimetableWaitComponent from "./components/TimetableWaitComponent";
 import DigitalClockComponent from "./components/DigitalClockComponent";
+import InputPollNameComponent from "./components/InputPollNameComponent";
+import TimetableInitComponent from "./components/TimetableInitComponent";
+import TimetableSorryComponent from "./components/TimetableSorryComponent";
+import TimetableErrorComponent from "./components/TimetableErrorComponent";
 
 import Vue from 'vue';
 
@@ -33,10 +38,15 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('header-component', HeaderComponent);
 Vue.component('timetable-wait-component', TimetableWaitComponent);
 Vue.component('timetable-list-component', TimetableListComponent);
+Vue.component('timetable-init-component', TimetableInitComponent);
+Vue.component('timetable-sorry-component', TimetableSorryComponent);
+Vue.component('timetable-error-component', TimetableErrorComponent);
 Vue.component('digital-clock', DigitalClockComponent);
+Vue.component('input-poll-name', InputPollNameComponent);
 
 Vue.use(VueCookies);
 Vue.use(VueAxios, axios);
+Vue.use(debounce);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

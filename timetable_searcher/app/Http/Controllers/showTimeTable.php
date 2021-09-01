@@ -41,6 +41,14 @@ class showTimeTable {
         //出発地バス停から、目的地に行く路線の時刻表を特定する
         [ $route_names_table, $table_candidate ] = findDeptPolls( $ch, $startpolls, $destpolls );
 
+        //時刻表が無かった場合は -1 を返す
+        if ( gettype( $table_candidate) != 'array' ) {
+            return -1;
+        }
+        if ( count( $table_candidate ) == 0 || $table_candidate[0] == '' ) {
+            return -1;
+        }
+
         // 調べるべき時刻表を特定する
         $tables = retrieveTimeTable( $day, $table_candidate );
         //print_r( $tables );

@@ -45,14 +45,14 @@
         data: function() {
             return {
 //              hogehoge: 'hogehoge ' + Vue.$cookies.get('depr_polls') + 'hogehoge'
-                deprs: [ { name: '日吉駅東口' }, { name: '箕輪町' } ],
-                dests: [ { name: '宮前西町' }, { name: '日大高校正門' } ],
+                deprs: [ { name: '日吉駅東口' }, { name: '箕輪町' } , { name: '大倉山駅前' }],
+                dests: [ { name: '宮前西町' }, { name: '日大高校正門' }, { name: '港北区総合庁舎前' } ],
                 depr_poll: '',
                 dest_poll: '',
                 isholiday: "0",
                 items: [],
                 url: '',
-                timetable_component : 'timetable-wait-component'
+                timetable_component : 'timetable-init-component'
             }
         },
         methods: {
@@ -76,7 +76,13 @@
                 this.axios.get(self.url).then((response) => {
                     self.items = response.data;
                     alert( self.items );
-                    self.timetable_component = 'timetable-list-component';
+                    if ( self.items == -1 ) {
+                        self.timetable_component = 'timetable-sorry-component';
+                    } else if (self.items == -11 ) {
+                        self.timetable_component = 'timetable-error-component';
+                    } else {
+                        self.timetable_component = 'timetable-list-component';
+                    }
                 })
                 .catch((e) => {
                     alert(e);

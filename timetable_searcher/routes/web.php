@@ -36,3 +36,11 @@ Route::get('timetable', function() {
 Route::get('loading', function() {
     return view('loading');
 });
+
+Route::get('submit2', function() {
+    return view('submit2');
+});
+
+Route::get('phpinfo', function() {
+    return view('phpinfo');
+});

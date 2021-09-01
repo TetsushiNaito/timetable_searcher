@@ -37,8 +37,8 @@ class PollnameRequest extends FormRequest
         return [
             'depr_poll.required' => '出発地のバス停を入力してください',
             'dest_poll.required' => '目的地のバス停を入力してください',
-            'depr_poll.pollname' => 'バス停の名前が間違っています',
-            'dest_poll.pollname' => 'バス停の名前が間違っています',
+            'depr_poll.pollname' => '正しいバス停名を入力してください',
+            'dest_poll.pollname' => '正しいバス停名を入力してください',
         ];
     }
 

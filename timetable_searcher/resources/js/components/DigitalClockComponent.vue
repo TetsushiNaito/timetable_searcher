@@ -1,6 +1,6 @@
 <template>
     <div>
-        {{ clock }}
+        <p>{{ clock }}</p>
     </div>
 </template>
 
@@ -23,14 +23,13 @@
                 if( hour < 10 ) { hour = "0" + hour; }
                 if( min < 10 ) { min = "0" + min; }
                 if( sec < 10 ) { sec = "0" + sec; }
-                const self = this;
+                let self = this;
                 self.clock = hour + ':' + min + ':' + sec;
             }
         },
         mounted: function() {
             let self = this;
             let timerID = setInterval( function(){ self.DigitalClock() }, 1000 );
-            alert( 'fugafuga' );
         }
     }
 </script>
