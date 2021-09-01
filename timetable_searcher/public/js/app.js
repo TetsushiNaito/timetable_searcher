@@ -1982,6 +1982,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -38814,7 +38816,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_c("p", [_vm._v(_vm._s(_vm.clock))])])
+  return _c("div", [
+    _c("h2", { staticClass: "text-center" }, [_vm._v(_vm._s(_vm.clock))])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -38944,24 +38948,30 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _c("td", [
+                _c(
+                  "td",
+                  { staticStyle: { width: "120px" }, attrs: { rowspan: "2" } },
+                  [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary btn-sm",
+                        on: { click: _vm.searchTimetable }
+                      },
+                      [_vm._v("更新")]
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", { attrs: { colspan: "2" } }, [
                   _c("input", {
                     ref: "isholiday",
                     attrs: { type: "checkbox", value: "0" },
                     on: { change: _vm.changeIsHoliday }
                   }),
                   _vm._v("祝日ダイヤ")
-                ]),
-                _vm._v(" "),
-                _c("td", { staticStyle: { width: "120px" } }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary btn-sm",
-                      on: { click: _vm.searchTimetable }
-                    },
-                    [_vm._v("更新")]
-                  )
                 ])
               ])
             ])
