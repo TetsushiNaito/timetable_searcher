@@ -12,6 +12,9 @@ class EncryptCookies extends Middleware
      * @var array
      */
     protected $except = [
+        'depr_polls',
+        'dest_polls',
+        'line_num'
         //
     ];
 }

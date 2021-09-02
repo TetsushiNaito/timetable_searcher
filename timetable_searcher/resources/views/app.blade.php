@@ -1,3 +1,9 @@
+<?php
+    if ( ! isset( $_COOKIE['depr_polls'] ) || ! isset( $_COOKIE['dest_polls'] ) ) {
+       header("Location: http://localhost/submit");
+       exit;
+    }
+?>
 <!doctype html>
  <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
  <head>
@@ -14,7 +20,7 @@
  </head>
  <body>
  <div id="app">
-<header-component></header-component>
+ <header-component></header-component>
  </div>
  <!-- Scripts -->
  <script src="{{ mix('/js/app.js') }}" defer></script>

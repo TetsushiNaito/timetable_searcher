@@ -13,7 +13,7 @@
     時刻表示数：{{$line_num}}<br />
     <br />
     を設定しました。
-    <button type="button" onclick="location.href='/{{$depr_poll}}/{{$dest_poll}}/{{$line_num}}/0'">時刻表画面へ</button>
+    <button type="button" onclick="location.href='/timetable'">時刻表画面へ</button>
 @else
 おかしいですね？？
 @endif

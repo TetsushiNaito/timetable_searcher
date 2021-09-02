@@ -13,9 +13,9 @@ require_once 'retrieveTimeTable.php';
 require_once 'TimeTable.php';
 
 //トップページ
-const TOPPAGE = 'http://localhost:8000/';
+const TOPPAGE = 'http://localhost/';
 // バス停の新規登録画面
-const SUBMITPAGE = 'http://localhost:8000/submit/';
+const SUBMITPAGE = 'http://localhost/submit/';
 
 use App\Http\Requests\PollnameRequest;
 use Illuminate\Http\Request;
@@ -102,26 +102,26 @@ class SearchController extends Controller
             // 登録されていないバス停名のみ追加する
             $array = explode( ':', $cookie );
             if ( array_search( $depr_poll, $array ) === false ) {
-                $response->cookie( 'depr_polls', $depr_poll . ':' . $cookie );
+                $response->cookie( 'depr_polls', $depr_poll . ':' . $cookie, 86400, '', '', '', false );
             }
         }
         else {
  //           $response->cookie( 'depr_polls', $depr_poll . ':' );
-            $response->cookie( 'depr_polls', $depr_poll );
+            $response->cookie( 'depr_polls', $depr_poll, 86400, '', '', '', false );
         }
         if ( isset( $_COOKIE['dest_polls'] ) ) {
             $cookie = $request->cookie( 'dest_polls');
             // 登録されていないバス停名のみ追加する
             $array = explode( ':', $cookie );
             if ( array_search( $dest_poll, $array ) === false ) {
-                $response->cookie( 'dest_polls', $dest_poll . ':' . $cookie );
+                $response->cookie( 'dest_polls', $dest_poll . ':' . $cookie, 86400, '', '', '', false );
             }
         }
         else {
 //            $response->cookie( 'dest_polls', $dest_poll . ':' );
-            $response->cookie( 'dest_polls', $dest_poll );
+            $response->cookie( 'dest_polls', $dest_poll, 86400, '', '', '', false );
         }
-        $response->cookie( 'line_num', $request->line_num );
+        $response->cookie( 'line_num', $request->line_num, 86400, '', '', '', false );
         return $response;
     }
 

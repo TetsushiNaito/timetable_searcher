@@ -1987,21 +1987,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      //              hogehoge: 'hogehoge ' + Vue.$cookies.get('depr_polls') + 'hogehoge'
-      deprs: [{
-        name: '日吉駅東口'
-      }, {
-        name: '箕輪町'
-      }, {
-        name: '大倉山駅前'
-      }],
-      dests: [{
-        name: '宮前西町'
-      }, {
-        name: '日大高校正門'
-      }, {
-        name: '港北区総合庁舎前'
-      }],
+      /* hogehoge: 'hogehoge ' + Vue.$cookies.get('depr_polls') + 'hogehoge' */
+
+      /* deprs: [ { name: '日吉駅東口' }, { name: '箕輪町' } , { name: '大倉山駅前' }], */
+
+      /* dests: [ { name: '宮前西町' }, { name: '日大高校正門' }, { name: '港北区総合庁舎前' } ], */
+      deprs: decodeURIComponent(this.$cookies.get('depr_polls')).split(':').map(function (value) {
+        return JSON.parse('{"name":"' + value + '"}');
+      }),
+      dests: this.$cookies.get('dest_polls').split(':').map(function (value) {
+        return JSON.parse('{"name":"' + value + '"}');
+      }),
       depr_poll: '',
       dest_poll: '',
       isholiday: "0",

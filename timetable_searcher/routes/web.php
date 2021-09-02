@@ -44,3 +44,11 @@ Route::get('submit2', function() {
 Route::get('phpinfo', function() {
     return view('phpinfo');
 });
+
+Route::get('sample', function() {
+    return view('sample');
+});
+
+Route::get('sample2', function() {
+    return view('sample2');
+});
