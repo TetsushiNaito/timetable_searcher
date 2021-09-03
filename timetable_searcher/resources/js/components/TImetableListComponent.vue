@@ -1,6 +1,6 @@
 <template>
      <div class="container">
-        <table class="table table-hover">
+        <table class="table">
             <thead class="thead-light">
             <tr>
                  <th scope="col">#</th>

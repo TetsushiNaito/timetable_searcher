@@ -29,8 +29,16 @@ Route::get( '/', function() {
 
 Route::get( '/{depr_poll}/{dest_poll}/{line_num}/{holiday?}', 'App\Http\Controllers\SearchController@api' );
 
+//Route::get('timetable', function() {
+//    return view('app');
+//});
+
 Route::get('timetable', function() {
     return view('app');
+});
+
+Route::get('hoge', function() {
+    return view('hoge');
 });
 
 Route::get('loading', function() {

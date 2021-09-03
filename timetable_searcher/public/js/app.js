@@ -1982,8 +1982,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -1992,7 +1990,7 @@ __webpack_require__.r(__webpack_exports__);
       /* deprs: [ { name: '日吉駅東口' }, { name: '箕輪町' } , { name: '大倉山駅前' }], */
 
       /* dests: [ { name: '宮前西町' }, { name: '日大高校正門' }, { name: '港北区総合庁舎前' } ], */
-      deprs: decodeURIComponent(this.$cookies.get('depr_polls')).split(':').map(function (value) {
+      deprs: this.$cookies.get('depr_polls').split(':').map(function (value) {
         return JSON.parse('{"name":"' + value + '"}');
       }),
       dests: this.$cookies.get('dest_polls').split(':').map(function (value) {
@@ -38887,111 +38885,109 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container-fluid bg-light mb-3" }, [
-    _c(
-      "div",
-      { staticClass: "container" },
-      [
-        _vm._m(0),
-        _vm._v(" "),
-        _c("div", [_c("digital-clock")], 1),
-        _vm._v(" "),
-        _c("div", [
-          _c("table", { staticClass: "table table-borderless" }, [
-            _c("tbody", [
-              _c("tr", [
-                _c("td", [
-                  _c("label", [
-                    _c("b", [_vm._v("出発：")]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        ref: "depr_poll_menu",
-                        on: { change: _vm.changeDeprPoll }
-                      },
-                      _vm._l(_vm.deprs, function(depr) {
-                        return _c(
-                          "option",
-                          { key: depr.name, domProps: { value: depr.name } },
-                          [_vm._v(_vm._s(depr.name))]
-                        )
-                      }),
-                      0
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("td", [
-                  _c("label", [
-                    _c("b", [_vm._v("行き先：")]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        ref: "dest_poll_menu",
-                        on: { change: _vm.changeDestPoll }
-                      },
-                      _vm._l(_vm.dests, function(dest) {
-                        return _c(
-                          "option",
-                          { key: dest.name, domProps: { value: dest.name } },
-                          [_vm._v(_vm._s(dest.name))]
-                        )
-                      }),
-                      0
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c(
-                  "td",
-                  { staticStyle: { width: "120px" }, attrs: { rowspan: "2" } },
-                  [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary btn-sm",
-                        on: { click: _vm.searchTimetable }
-                      },
-                      [_vm._v("更新")]
-                    )
-                  ]
-                )
+  return _c(
+    "div",
+    [
+      _c("div", [_c("digital-clock")], 1),
+      _vm._v(" "),
+      _c("div", [
+        _c("table", { staticClass: "table table-borderless" }, [
+          _c("tbody", [
+            _c("tr", [
+              _c("td", [
+                _c("label", [
+                  _c("b", [_vm._v("出発：")]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      ref: "depr_poll_menu",
+                      on: { change: _vm.changeDeprPoll }
+                    },
+                    _vm._l(_vm.deprs, function(depr) {
+                      return _c(
+                        "option",
+                        { key: depr.name, domProps: { value: depr.name } },
+                        [_vm._v(_vm._s(depr.name))]
+                      )
+                    }),
+                    0
+                  )
+                ])
               ]),
               _vm._v(" "),
-              _c("tr", [
-                _c("td", { attrs: { colspan: "2" } }, [
-                  _c("input", {
-                    ref: "isholiday",
-                    attrs: { type: "checkbox", value: "0" },
-                    on: { change: _vm.changeIsHoliday }
-                  }),
-                  _vm._v("祝日ダイヤ")
+              _c("td", [
+                _c("label", [
+                  _c("b", [_vm._v("行き先：")]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      ref: "dest_poll_menu",
+                      on: { change: _vm.changeDestPoll }
+                    },
+                    _vm._l(_vm.dests, function(dest) {
+                      return _c(
+                        "option",
+                        { key: dest.name, domProps: { value: dest.name } },
+                        [_vm._v(_vm._s(dest.name))]
+                      )
+                    }),
+                    0
+                  )
                 ])
+              ]),
+              _vm._v(" "),
+              _vm._m(0)
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _c("td", [
+                _c("input", {
+                  ref: "isholiday",
+                  attrs: { type: "checkbox", value: "0" },
+                  on: { change: _vm.changeIsHoliday }
+                }),
+                _vm._v("祝日ダイヤ")
+              ]),
+              _vm._v(" "),
+              _c("td", [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary btn-lg",
+                    on: { click: _vm.searchTimetable }
+                  },
+                  [_vm._v("更新")]
+                )
               ])
             ])
           ])
-        ]),
-        _vm._v(" "),
-        _c(_vm.timetable_component, {
-          tag: "component",
-          attrs: { items: _vm.items }
-        })
-      ],
-      1
-    )
-  ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c(_vm.timetable_component, {
+        tag: "component",
+        attrs: { items: _vm.items }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("nav", { staticClass: "navbar navbar-light" }, [
-      _c("span", { staticClass: "navbar-brand mb-0 h1" }, [
-        _vm._v("Timetable Searcher")
-      ])
+    return _c("td", [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary btn-sm",
+          attrs: { onclick: "document.location='http://localhost/submit';" }
+        },
+        [_vm._v("登録")]
+      )
     ])
   }
 ]
@@ -39134,7 +39130,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("table", { staticClass: "table table-hover" }, [
+    _c("table", { staticClass: "table" }, [
       _vm._m(0),
       _vm._v(" "),
       _c(
