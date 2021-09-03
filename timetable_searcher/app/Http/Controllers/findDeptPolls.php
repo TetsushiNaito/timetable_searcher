@@ -26,6 +26,7 @@ function findDeptPolls( $handle, $startpolls, $destpolls ) {
 
     $route_nums = [];
     $route_names_table = [];
+    $timetable_candidate = [];
 
     //各バス停から乗れる路線を取り出す
     //各バス停ごとにループを回す
@@ -66,7 +67,7 @@ function findDeptPolls( $handle, $startpolls, $destpolls ) {
                                 break 2;
                             }
                             if ( ! in_array( $startpoll->$busstoppoletimetable, $timetable_candidate ) ) {
-                                $timetable_candidate[] = $startpoll->$busstoppoletimetable;
+                                $timetable_candidate = array_merge( $timetable_candidate, $startpoll->$busstoppoletimetable );
                             }
                             break 2;        
                         }
