@@ -63,6 +63,9 @@ class showTimeTable {
         $line = [];
         $line_count = count($nowtime);
         for ( $k = 0; $k < count($nowtime); $k++ ) {
+            if ( ! isset ( $nowtime[$k]->note ) ) {
+                $nowtime[$k]->note = '---';
+            } 
             $line[$k] = [
                 'id' => $k + 1,
                 'dept_time' => $nowtime[$k]->dept_time,
