@@ -39301,7 +39301,7 @@ var staticRenderFns = [
       [
         _c("img", {
           staticClass: "text-center",
-          attrs: { src: "http://localhost/images/loading.gif" }
+          attrs: { src: "http://localhost/images/bus-coming.gif" }
         })
       ]
     )

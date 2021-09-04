@@ -1,5 +1,5 @@
 <template>
     <div style="width:100%" class="text-center">
-        <img class="text-center" src="http://localhost/images/loading.gif">
+        <img class="text-center" src="http://localhost/images/bus-coming.gif">
     </div>
 </template>
