@@ -16,10 +16,10 @@
  <body>
  <div class="container">
     <nav class="navbar navbar-light">
-        <span class="navbar-brand mb-0 h1">Timetable Searcher</span>
+        <span class="navbar navbar-brand mx-auto"><a href="http://localhost/timetable"><img src="images/kurubus-logo.png" alt="くるバス"></a></span>
     </nav>
 @yield('content')
-    <div class="footer">
+    <div class="footer text-center">
         2021 Copyright &copy; Pherkad Gamma
     </div>
  </div>

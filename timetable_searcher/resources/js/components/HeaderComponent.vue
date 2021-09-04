@@ -4,39 +4,45 @@
         <digital-clock></digital-clock>
         </div>
         <div>
-            <table class="table table-borderless">
+            <table style="margin-bottom:0px" class="table table-borderless">
             <tbody>
                 <tr>
-                    <td>
-                        <label><b>出発：</b>
+                    <td style="width:50%" class="text-center">
+                        <label><b>出発：</b><br />
                             <select ref="depr_poll_menu" @change="changeDeprPoll">
                                 <option v-for="depr in deprs" :key="depr.name" :value="depr.name">{{depr.name}}</option>
                             </select>
                         </label>
                     </td>
-                    <td>
-                        <label><b>行き先：</b>
+                    <td style="width:50%" class="text-center">
+                        <label><b>行き先：</b><br />
                             <select ref="dest_poll_menu" @change="changeDestPoll">
                                 <option v-for="dest in dests" :key="dest.name" :value="dest.name">{{dest.name}}</option>
                             </select>
                         </label>
                     </td>
-                    <td>
-                        <button class="btn btn-primary btn-sm" onclick="document.location='http://localhost/submit';">登録</button>
-                    </td>
                 </tr>
+            </tbody>
+            </table>
+            <table style="margin-bottom:0px" class="table table-borderless">
+            <tbody>
                 <tr>
-                    <td>
+                    <td style="width:33%; vertical-align:middle" class="text-center">
                         <input type="checkbox" ref="isholiday" @change="changeIsHoliday" value="0">祝日ダイヤ</input>
                     </td>
-                    <td>
+                    <td style="width:34%; vertical-align:middle" class="text-center">
                         <button class="btn btn-primary btn-lg" @click="searchTimetable">更新</button>
+                    </td>
+                    <td style="width:33%; vertical-align:middle" class="text-center">
+                        <button class="btn btn-primary btn-sm" onclick="document.location='http://localhost/submit';">登録</button>
                     </td>
                 </tr>
             </tbody>
             </table>
         </div>
-        <component :is="timetable_component" :items="items"></component>
+        <div class="text-center">
+            <component :is="timetable_component" :items="items"></component>
+        </div>
     </div>
  </template>
  
@@ -74,10 +80,10 @@
                 const self = this;
                 self.url = 'http://localhost/' + self.depr_poll + '/' + self.dest_poll + '/3/' + self.isholiday;
                 self.timetable_component = 'timetable-wait-component';
-                alert ('url: '+self.url)
+                //alert ('url: '+self.url)
                 this.axios.get(self.url).then((response) => {
                     self.items = response.data;
-                    alert( self.items );
+                    //alert( self.items );
                     if ( self.items == -1 ) {
                         self.timetable_component = 'timetable-sorry-component';
                     } else if (self.items == -11 ) {

@@ -1982,6 +1982,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2020,11 +2026,10 @@ __webpack_require__.r(__webpack_exports__);
     searchTimetable: function searchTimetable() {
       var self = this;
       self.url = 'http://localhost/' + self.depr_poll + '/' + self.dest_poll + '/3/' + self.isholiday;
-      self.timetable_component = 'timetable-wait-component';
-      alert('url: ' + self.url);
+      self.timetable_component = 'timetable-wait-component'; //alert ('url: '+self.url)
+
       this.axios.get(self.url).then(function (response) {
-        self.items = response.data;
-        alert(self.items);
+        self.items = response.data; //alert( self.items );
 
         if (self.items == -1) {
           self.timetable_component = 'timetable-sorry-component';
@@ -38885,110 +38890,162 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("div", [_c("digital-clock")], 1),
-      _vm._v(" "),
-      _c("div", [
-        _c("table", { staticClass: "table table-borderless" }, [
+  return _c("div", [
+    _c("div", [_c("digital-clock")], 1),
+    _vm._v(" "),
+    _c("div", [
+      _c(
+        "table",
+        {
+          staticClass: "table table-borderless",
+          staticStyle: { "margin-bottom": "0px" }
+        },
+        [
           _c("tbody", [
             _c("tr", [
-              _c("td", [
-                _c("label", [
-                  _c("b", [_vm._v("出発：")]),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      ref: "depr_poll_menu",
-                      on: { change: _vm.changeDeprPoll }
-                    },
-                    _vm._l(_vm.deprs, function(depr) {
-                      return _c(
-                        "option",
-                        { key: depr.name, domProps: { value: depr.name } },
-                        [_vm._v(_vm._s(depr.name))]
-                      )
-                    }),
-                    0
-                  )
-                ])
-              ]),
+              _c(
+                "td",
+                { staticClass: "text-center", staticStyle: { width: "50%" } },
+                [
+                  _c("label", [
+                    _c("b", [_vm._v("出発：")]),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        ref: "depr_poll_menu",
+                        on: { change: _vm.changeDeprPoll }
+                      },
+                      _vm._l(_vm.deprs, function(depr) {
+                        return _c(
+                          "option",
+                          { key: depr.name, domProps: { value: depr.name } },
+                          [_vm._v(_vm._s(depr.name))]
+                        )
+                      }),
+                      0
+                    )
+                  ])
+                ]
+              ),
               _vm._v(" "),
-              _c("td", [
-                _c("label", [
-                  _c("b", [_vm._v("行き先：")]),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      ref: "dest_poll_menu",
-                      on: { change: _vm.changeDestPoll }
-                    },
-                    _vm._l(_vm.dests, function(dest) {
-                      return _c(
-                        "option",
-                        { key: dest.name, domProps: { value: dest.name } },
-                        [_vm._v(_vm._s(dest.name))]
-                      )
-                    }),
-                    0
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _vm._m(0)
-            ]),
-            _vm._v(" "),
-            _c("tr", [
-              _c("td", [
-                _c("input", {
-                  ref: "isholiday",
-                  attrs: { type: "checkbox", value: "0" },
-                  on: { change: _vm.changeIsHoliday }
-                }),
-                _vm._v("祝日ダイヤ")
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary btn-lg",
-                    on: { click: _vm.searchTimetable }
-                  },
-                  [_vm._v("更新")]
-                )
-              ])
+              _c(
+                "td",
+                { staticClass: "text-center", staticStyle: { width: "50%" } },
+                [
+                  _c("label", [
+                    _c("b", [_vm._v("行き先：")]),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        ref: "dest_poll_menu",
+                        on: { change: _vm.changeDestPoll }
+                      },
+                      _vm._l(_vm.dests, function(dest) {
+                        return _c(
+                          "option",
+                          { key: dest.name, domProps: { value: dest.name } },
+                          [_vm._v(_vm._s(dest.name))]
+                        )
+                      }),
+                      0
+                    )
+                  ])
+                ]
+              )
             ])
           ])
-        ])
-      ]),
+        ]
+      ),
       _vm._v(" "),
-      _c(_vm.timetable_component, {
-        tag: "component",
-        attrs: { items: _vm.items }
-      })
-    ],
-    1
-  )
+      _c(
+        "table",
+        {
+          staticClass: "table table-borderless",
+          staticStyle: { "margin-bottom": "0px" }
+        },
+        [
+          _c("tbody", [
+            _c("tr", [
+              _c(
+                "td",
+                {
+                  staticClass: "text-center",
+                  staticStyle: { width: "33%", "vertical-align": "middle" }
+                },
+                [
+                  _c("input", {
+                    ref: "isholiday",
+                    attrs: { type: "checkbox", value: "0" },
+                    on: { change: _vm.changeIsHoliday }
+                  }),
+                  _vm._v("祝日ダイヤ")
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                {
+                  staticClass: "text-center",
+                  staticStyle: { width: "34%", "vertical-align": "middle" }
+                },
+                [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary btn-lg",
+                      on: { click: _vm.searchTimetable }
+                    },
+                    [_vm._v("更新")]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _vm._m(0)
+            ])
+          ])
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "text-center" },
+      [
+        _c(_vm.timetable_component, {
+          tag: "component",
+          attrs: { items: _vm.items }
+        })
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary btn-sm",
-          attrs: { onclick: "document.location='http://localhost/submit';" }
-        },
-        [_vm._v("登録")]
-      )
-    ])
+    return _c(
+      "td",
+      {
+        staticClass: "text-center",
+        staticStyle: { width: "33%", "vertical-align": "middle" }
+      },
+      [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary btn-sm",
+            attrs: { onclick: "document.location='http://localhost/submit';" }
+          },
+          [_vm._v("登録")]
+        )
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -39231,9 +39288,25 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("img", { attrs: { src: "http://localhost/images/loading.gif" } })
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "text-center", staticStyle: { width: "100%" } },
+      [
+        _c("img", {
+          staticClass: "text-center",
+          attrs: { src: "http://localhost/images/loading.gif" }
+        })
+      ]
+    )
+  }
+]
 render._withStripped = true
 
 
