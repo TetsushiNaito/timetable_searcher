@@ -37,26 +37,6 @@ Route::get('timetable', function() {
     return view('app');
 });
 
-Route::get('hoge', function() {
-    return view('hoge');
-});
-
 Route::get('loading', function() {
     return view('loading');
-});
-
-Route::get('submit2', function() {
-    return view('submit2');
-});
-
-Route::get('phpinfo', function() {
-    return view('phpinfo');
-});
-
-Route::get('sample', function() {
-    return view('sample');
-});
-
-Route::get('sample2', function() {
-    return view('sample2');
 });

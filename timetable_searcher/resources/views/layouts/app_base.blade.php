@@ -16,7 +16,7 @@
  <body>
  <div class="container">
     <nav class="navbar navbar-light">
-        <span class="navbar navbar-brand mx-auto"><a href="http://localhost/timetable"><img src="images/kurubus-logo.png" alt="くるバス"></a></span>
+        <span class="navbar navbar-brand mx-auto"><a href="https://kurubus.com/timetable"><img src="images/kurubus-logo.png" alt="くるバス"></a></span>
     </nav>
 @yield('content')
     <div class="footer text-center">

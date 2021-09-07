@@ -2025,7 +2025,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     searchTimetable: function searchTimetable() {
       var self = this;
-      self.url = 'http://localhost/' + self.depr_poll + '/' + self.dest_poll + '/3/' + self.isholiday;
+      self.url = 'https://kurubus.com/' + self.depr_poll + '/' + self.dest_poll + '/3/' + self.isholiday;
       self.timetable_component = 'timetable-wait-component'; //alert ('url: '+self.url)
 
       this.axios.get(self.url).then(function (response) {
@@ -2048,7 +2048,7 @@ __webpack_require__.r(__webpack_exports__);
     self.depr_poll = this.$refs.depr_poll_menu.value;
     self.dest_poll = this.$refs.dest_poll_menu.value;
     self.isholiday = this.$refs.isholiday.value;
-    self.url = 'http://localhost/' + self.depr_poll + '/' + self.dest_poll + '/3/' + self.isholiday;
+    self.url = 'https://kurubus.com/' + self.depr_poll + '/' + self.dest_poll + '/3/' + self.isholiday;
   }
 });
 
@@ -39040,7 +39040,9 @@ var staticRenderFns = [
           "button",
           {
             staticClass: "btn btn-primary btn-sm",
-            attrs: { onclick: "document.location='http://localhost/submit';" }
+            attrs: {
+              onclick: "document.location='https://kurubus.com/submit';"
+            }
           },
           [_vm._v("登録")]
         )
@@ -39301,7 +39303,7 @@ var staticRenderFns = [
       [
         _c("img", {
           staticClass: "text-center",
-          attrs: { src: "http://localhost/images/bus-coming2.gif" }
+          attrs: { src: "http://kurubus.com/images/bus-coming2.gif" }
         })
       ]
     )

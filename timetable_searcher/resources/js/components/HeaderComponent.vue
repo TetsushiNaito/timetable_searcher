@@ -34,7 +34,7 @@
                         <button class="btn btn-primary btn-lg" @click="searchTimetable">更新</button>
                     </td>
                     <td style="width:33%; vertical-align:middle" class="text-center">
-                        <button class="btn btn-primary btn-sm" onclick="document.location='http://localhost/submit';">登録</button>
+                        <button class="btn btn-primary btn-sm" onclick="document.location='https://kurubus.com/submit';">登録</button>
                     </td>
                 </tr>
             </tbody>
@@ -78,7 +78,7 @@
             },
             searchTimetable: function() {
                 const self = this;
-                self.url = 'http://localhost/' + self.depr_poll + '/' + self.dest_poll + '/3/' + self.isholiday;
+                self.url = 'https://kurubus.com/' + self.depr_poll + '/' + self.dest_poll + '/3/' + self.isholiday;
                 self.timetable_component = 'timetable-wait-component';
                 //alert ('url: '+self.url)
                 this.axios.get(self.url).then((response) => {
@@ -102,7 +102,7 @@
                 self.depr_poll = this.$refs.depr_poll_menu.value;
                 self.dest_poll = this.$refs.dest_poll_menu.value;
                 self.isholiday = this.$refs.isholiday.value;
-                self.url = 'http://localhost/' + self.depr_poll + '/' + self.dest_poll + '/3/' + self.isholiday;
+                self.url = 'https://kurubus.com/' + self.depr_poll + '/' + self.dest_poll + '/3/' + self.isholiday;
         }
 
     }

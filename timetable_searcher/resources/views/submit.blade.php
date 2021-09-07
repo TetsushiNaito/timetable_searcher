@@ -32,7 +32,7 @@
                     <button type="submit" class="btn btn-primary">登録</button>
                 </td>
                 <td style="width:50%; text-align:left">
-                    <button type="button" class="btn btn-primary" onclick="document.location='http://localhost/timetable';">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="document.location='https://kurubus.com/timetable';">取消</button>
                 </td>
             </tr>
         </table>

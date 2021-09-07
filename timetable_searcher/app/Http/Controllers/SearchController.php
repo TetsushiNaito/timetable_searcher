@@ -13,9 +13,9 @@ require_once 'retrieveTimeTable.php';
 require_once 'TimeTable.php';
 
 //トップページ
-const TOPPAGE = 'http://localhost/';
+const TOPPAGE = 'http://kurubus.com/';
 // バス停の新規登録画面
-const SUBMITPAGE = 'http://localhost/submit/';
+const SUBMITPAGE = 'http://kurubus.com/submit/';
 
 use App\Http\Requests\PollnameRequest;
 use Illuminate\Http\Request;
